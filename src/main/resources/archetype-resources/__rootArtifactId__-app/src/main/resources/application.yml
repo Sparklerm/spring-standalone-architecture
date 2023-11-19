@@ -1,0 +1,107 @@
+server:
+  port: 8080
+  servlet:
+    # 默认路径前置。如原路径 /user/login --> /api/user/login
+    context-path: /api
+
+spring:
+  application:
+    name: spring-boot-app
+  profiles:
+    active: @env@
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  # 数据库连接池通用配置
+  datasource:
+    druid:
+      # 初始化连接池大小
+      initial-size: 10
+      # 最小连接数
+      min-idle: 5
+      # 最大连接数
+      maxActive: 100
+      # 获取数据库连接等待的超时时间
+      maxWait: 60000
+      maxOpenPreparedStatements: -1
+      # 系统启动时通过该sql语句验证数据库是否可用，如果不配置validationQuery，则下面三项无效
+      validationQuery: SELECT 1
+      # 启用空闲连接检测，以便回收
+      testWhileIdle: true
+      # 从连接池获取连接时，是否检测连接可用性，开启性能会有些许影响
+      testOnBorrow: false
+      # 释放连接到连接池时，是否检测连接可用性，开启性能会有些许影响
+      testOnReturn: false
+      # 配置多久进行一次检测，检测需要关闭的空闲连接 单位毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置连接在池中的最小生存时间
+      minEvictableIdleTimeMillis: 300000
+      # 配置连接在池中的最大生存时间
+      maxEvictableIdleTimeMillis: 400000
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnectionSize: 20
+      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      filters: stat
+      useGlobalDataSourceStat: true
+      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      # 从获取到链接开始，超过这么长时间，链接将被连接池强制回收
+      removeAbandonedTimeout: 180
+      # 强制回收链接是，将堆栈追踪信息打印到日志中
+      logAbandoned: true
+      breakAfterAcquireFailure: true
+      connectionErrorRetryAttempts: 0
+      # =========== 监控配置 ==============
+      web-stat-filter:
+        # 是否启用StatFilter默认值false
+        enabled: true
+      stat-view-servlet:
+        # 是否启用StatViewServlet（监控页面）默认值为false（考虑到安全问题默认并未启动，如需启用建议设置密码或白名单以保障安全）
+        enabled: true
+        # 访问用户名
+        login-username: boot
+        # 访问密码
+        login-password: boot
+    # Redis连接通用配置
+  redis:
+    jedis:
+      pool:
+        #最大连接数
+        max-active: 8
+        #最大阻塞等待时间(负数表示没限制)
+        max-wait: -1
+        #最大空闲
+        max-idle: 8
+        #最小空闲
+        min-idle: 0
+    #连接超时时间
+    timeout: 10000
+
+############## Swagger配置 ###############
+knife4j:
+  production: false # 开启生产环境屏蔽
+
+############## Mybatis 配置 ##############
+# MyBatis配置
+mybatis-plus:
+  # 搜索指定包别名
+  type-aliases-package: com.**.*.po
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapper-locations: classpath:mapper/**/*xml
+  # 配置驼峰
+  configuration:
+    # 是否开启自动驼峰命名规则（camel case）映射。默认值：true
+    map-underscore-to-camel-case: true
+    # 开启 Mybatis 二级缓存，默认为 true。
+    cache-enabled: true
+    # 日志输出实现。StdOutImpl 标准日志控制台输出
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  #    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    db-config:
+      # 全局默认主键类型
+      id-type: assign_id
+      # 表名是否使用驼峰转下划线命名,只对表名生效。 默认true
+      table-underline: true

@@ -1,0 +1,31 @@
+# 线程池配置
+thread:
+  pool:
+    executor:
+      config:
+        core-pool-size: 20
+        max-pool-size: 50
+        keep-alive-time: 5000
+        block-queue-size: 5000
+        policy: CallerRunsPolicy
+
+############## 数据库连接信息 ###############
+# 这里用h2数据库仅作为启动时的数据库连接测试，启动测试无其他问题后，再配置为mysql数据库
+spring:
+  datasource:
+    druid:
+      url: jdbc:h2:mem:testdb
+      driver-class-name: org.h2.Driver
+      username: sa
+      password: password
+#      username: root
+#      password: 123456
+#      url: jdbc:mysql://127.0.0.1:3306/boot_dev?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&useSSL=true
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+############## 日志配置 ###############
+logging:
+  level:
+    root: info
+  config: classpath:logback-spring.xml
