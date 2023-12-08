@@ -1,6 +1,6 @@
 package ${groupId}.common.utils.excel.common;
 
-import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.ExcelReader;
 import com.alibaba.excel.read.metadata.ReadSheet;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +16,9 @@ import java.util.List;
  */
 public class ExcelCommon {
 
+    private ExcelCommon() {
+    }
+
     /**
      * 获取Excel 所有Sheet信息
      *
@@ -23,7 +26,7 @@ public class ExcelCommon {
      * @return list
      */
     public static List<ReadSheet> hasSheets(String fileName) {
-        try (ExcelReader build = EasyExcel.read(fileName).build()) {
+        try (ExcelReader build = EasyExcelFactory.read(fileName).build()) {
             return build.excelExecutor().sheetList();
         }
     }
@@ -35,7 +38,7 @@ public class ExcelCommon {
      * @return list
      */
     public static List<ReadSheet> hasSheets(MultipartFile file) throws IOException {
-        try (ExcelReader build = EasyExcel.read(file.getInputStream()).build()) {
+        try (ExcelReader build = EasyExcelFactory.read(file.getInputStream()).build()) {
             return build.excelExecutor().sheetList();
         }
     }

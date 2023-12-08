@@ -17,6 +17,8 @@ import java.util.TreeMap;
 
 /**
  * 全局异常处理
+ *
+ * @author MENGJIAO
  */
 @RestControllerAdvice
 @Slf4j
@@ -31,8 +33,8 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = BizException.class)
     public Result<BizException> bizExceptionHandler(HttpServletRequest req, BizException e) {
-        log.error("[ {} ] {} 请求异常: {}", req.getMethod(), req.getRequestURL(), e.getErrorMsg());
-        return Result.error(e.getErrorCode(), e.getErrorMsg());
+        log.error("[ {} ] {} 请求异常: {}", req.getMethod(), req.getRequestURL(), e.getErrorCode());
+        return Result.error(e.getErrorCode(), e.getErrorCode());
     }
 
     /**

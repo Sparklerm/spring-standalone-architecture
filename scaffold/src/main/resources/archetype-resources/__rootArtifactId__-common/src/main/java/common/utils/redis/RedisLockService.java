@@ -1,10 +1,10 @@
 package ${groupId}.common.utils.redis;
 
 
+import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import ${groupId}.common.enums.BizCodeEnum;
 import ${groupId}.common.enums.RLockEnum;
 import ${groupId}.common.exception.BizAssert;
-import ${groupId}.common.utils.ObjectUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -49,16 +49,16 @@ public class RedisLockService {
      * @return 锁
      */
     public RLock getLock(String lockKey, RLockEnum rLockEnum) {
-        RLockEnum lockType = RLockEnum.ReentrantLock;
+        RLockEnum lockType = RLockEnum.REENTRANT_LOCK;
         if (ObjectUtils.isNotNull(rLockEnum) && ObjectUtils.isNotEmpty(rLockEnum)) {
             lockType = rLockEnum;
         }
         switch (lockType) {
-            case FairLock:
+            case FAIR_LOCK:
                 return redissonClient.getFairLock(lockKey);
-            case ReadLock:
+            case READ_LOCK:
                 return redissonClient.getReadWriteLock(lockKey).readLock();
-            case WriteLock:
+            case WRITE_LOCK:
                 return redissonClient.getReadWriteLock(lockKey).writeLock();
             default:
                 return getLock(lockKey);

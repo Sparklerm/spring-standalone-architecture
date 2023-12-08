@@ -1,8 +1,8 @@
 package ${groupId}.common.utils.http;
 
 import ${groupId}.common.constant.Constants;
-import ${groupId}.common.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;

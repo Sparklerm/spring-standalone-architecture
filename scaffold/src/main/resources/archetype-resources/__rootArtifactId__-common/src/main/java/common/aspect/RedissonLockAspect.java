@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  * Redisson 分布式锁切面
  *
  * @author Alex Meng
- * @createDate 2023-09-18 下午 07:17
+ * @createDate 2023-09-18 07:17
  */
 @Slf4j
 @Aspect

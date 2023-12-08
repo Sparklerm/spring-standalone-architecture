@@ -1,11 +1,12 @@
 package ${groupId}.common.utils;
 
-
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.text.CharSequenceUtil;
 import cn.hutool.core.util.CharsetUtil;
 import cn.hutool.core.util.StrUtil;
 import org.springframework.util.AntPathMatcher;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,10 @@ import java.util.regex.Pattern;
  * @author Alex Meng
  * @createDate 2023 /01/01
  */
-public class StringUtils extends StrUtil {
+public class StrUtils {
+
+    private StrUtils() {
+    }
 
     /**
      * The constant SPLIT_REGEX_COMMA.
@@ -29,6 +33,8 @@ public class StringUtils extends StrUtil {
      * The constant REGEX_NUMERIC.
      */
     public static final String REGEX_NUMERIC = "^[+-]?\\d*$";
+
+    private static final String UNDERLINE = "_";
 
     /**
      * 金额小数位校验
@@ -43,13 +49,13 @@ public class StringUtils extends StrUtil {
      * @return list list
      */
     public static List<String> splitFilterBlank(String str, String regex) {
-        if (StringUtils.isBlank(str) || StringUtils.isBlank(regex)) {
+        if (org.apache.commons.lang3.StringUtils.isBlank(str) || org.apache.commons.lang3.StringUtils.isBlank(regex)) {
             return new ArrayList<>();
         }
         String[] splits = str.split(regex);
         List<String> results = new ArrayList<>();
         for (String split : splits) {
-            if (StringUtils.isBlank(split)) {
+            if (org.apache.commons.lang3.StringUtils.isBlank(split)) {
                 continue;
             }
             results.add(split);
@@ -67,7 +73,7 @@ public class StringUtils extends StrUtil {
         List<String> strings = splitFilterBlank(str, SPLIT_REGEX_COMMA);
         List<Long> longs = new ArrayList<>();
         for (String string : strings) {
-            if (!StringUtils.isNumeric(string)) {
+            if (!StrUtils.isNumeric(string)) {
                 throw new IllegalArgumentException("请传入正确的数字");
             }
             Long num = Long.valueOf(string);
@@ -83,7 +89,7 @@ public class StringUtils extends StrUtil {
      * @return the boolean
      */
     public static boolean isNumeric(String string) {
-        return StringUtils.isNotBlank(string) && string.matches(REGEX_NUMERIC);
+        return org.apache.commons.lang3.StringUtils.isNotBlank(string) && string.matches(REGEX_NUMERIC);
     }
 
     /**
@@ -95,11 +101,11 @@ public class StringUtils extends StrUtil {
      */
     public static String buildUrl(String url, Map<String, String> params) {
         StringBuilder builder = new StringBuilder(url);
-        for (String param : params.keySet()) {
+        for (Map.Entry<String, String> param : params.entrySet()) {
             builder.append("&");
-            builder.append(param);
+            builder.append(param.getKey());
             builder.append("=");
-            builder.append(params.get(param));
+            builder.append(param.getValue());
         }
         return builder.toString();
     }
@@ -123,15 +129,15 @@ public class StringUtils extends StrUtil {
      */
     public static List<Integer> commaSplitFilterBlankAsIntegerList(String str) {
         List<String> strings = splitFilterBlank(str, SPLIT_REGEX_COMMA);
-        List<Integer> ints = new ArrayList<>();
+        List<Integer> its = new ArrayList<>();
         for (String string : strings) {
-            if (!StringUtils.isNumeric(string)) {
+            if (!StrUtils.isNumeric(string)) {
                 throw new IllegalArgumentException("请传入正确的数字");
             }
             Integer num = Integer.valueOf(string);
-            ints.add(num);
+            its.add(num);
         }
-        return ints;
+        return its;
     }
 
     /**
@@ -141,7 +147,7 @@ public class StringUtils extends StrUtil {
      * @return the file name by path
      */
     public static String getFileNameByPath(String path) {
-        if (StringUtils.isBlank(path)) {
+        if (org.apache.commons.lang3.StringUtils.isBlank(path)) {
             return null;
         }
         return path.substring(path.lastIndexOf("/") + 1);
@@ -154,7 +160,7 @@ public class StringUtils extends StrUtil {
      * @return the suffix
      */
     public static String getSuffix(String path) {
-        if (StringUtils.isBlank(path)) {
+        if (org.apache.commons.lang3.StringUtils.isBlank(path)) {
             return null;
         }
         return path.substring(path.lastIndexOf("."));
@@ -168,7 +174,7 @@ public class StringUtils extends StrUtil {
     public static String append(String... targets) {
         StringBuilder stringBuilder = new StringBuilder();
         for (String target : targets) {
-            if (StringUtils.isNotBlank(target)) {
+            if (org.apache.commons.lang3.StringUtils.isNotBlank(target)) {
                 stringBuilder.append(target);
             }
         }
@@ -182,7 +188,7 @@ public class StringUtils extends StrUtil {
      * @return the integer
      */
     public static Integer getInteger(String value) {
-        if (isBlank(value)) {
+        if (org.apache.commons.lang3.StringUtils.isBlank(value)) {
             return null;
         }
         return Integer.valueOf(value);
@@ -195,7 +201,7 @@ public class StringUtils extends StrUtil {
      * @return the double
      */
     public static Double getDouble(String value) {
-        if (isBlank(value)) {
+        if (org.apache.commons.lang3.StringUtils.isBlank(value)) {
             return null;
         }
         return Double.valueOf(value);
@@ -208,7 +214,7 @@ public class StringUtils extends StrUtil {
      * @return the string
      */
     public static String emptyString(String s) {
-        if (StringUtils.isEmpty(s)) {
+        if (org.apache.commons.lang3.StringUtils.isEmpty(s)) {
             return "未知";
         }
         return s;
@@ -222,10 +228,10 @@ public class StringUtils extends StrUtil {
      * @return 是否满足校验规则 boolean
      */
     public static boolean moneyCheck(String money) {
-        if (StringUtils.isBlank(money)) {
+        if (org.apache.commons.lang3.StringUtils.isBlank(money)) {
             return Boolean.FALSE;
         }
-        if (StringUtils.MONEY_CHECK.matcher(money).matches()) {
+        if (StrUtils.MONEY_CHECK.matcher(money).matches()) {
             return Boolean.TRUE;
         }
         return Boolean.FALSE;
@@ -263,7 +269,7 @@ public class StringUtils extends StrUtil {
      * @return the byte [ ]
      */
     public static byte[] bytes(String str) {
-        return StrUtil.bytes(str, CharsetUtil.CHARSET_UTF_8);
+        return CharSequenceUtil.bytes(str, CharsetUtil.CHARSET_UTF_8);
     }
 
     /**
@@ -274,7 +280,7 @@ public class StringUtils extends StrUtil {
      * @return boolean boolean
      */
     public static boolean minLenCheck(String str, int minLen) {
-        if (StringUtils.isBlank(str) || str.length() < minLen) {
+        if (org.apache.commons.lang3.StringUtils.isBlank(str) || str.length() < minLen) {
             return Boolean.FALSE;
         }
         return Boolean.TRUE;
@@ -288,7 +294,7 @@ public class StringUtils extends StrUtil {
      * @return the boolean
      */
     public static boolean maxLenCheck(String str, int maxLen) {
-        if (StringUtils.isBlank(str) || str.length() > maxLen) {
+        if (org.apache.commons.lang3.StringUtils.isBlank(str) || str.length() > maxLen) {
             return Boolean.FALSE;
         }
         return Boolean.TRUE;
@@ -317,7 +323,7 @@ public class StringUtils extends StrUtil {
      * @return 是否匹配 boolean
      */
     public static boolean matches(String str, List<String> strList) {
-        if (isEmpty(str) || CollUtil.isEmpty(strList)) {
+        if (org.apache.commons.lang3.StringUtils.isBlank(str) || CollUtil.isEmpty(strList)) {
             return false;
         }
         for (String pattern : strList) {
@@ -336,7 +342,7 @@ public class StringUtils extends StrUtil {
      * @return 结果
      */
     public static String camelToUnderline(String param, boolean... upperCase) {
-        if (param == null || "".equals(param.trim())) {
+        if (param == null || param.trim().isEmpty()) {
             return "";
         }
 
@@ -345,7 +351,7 @@ public class StringUtils extends StrUtil {
         for (int i = 0; i < len; i++) {
             char c = param.charAt(i);
             if (Character.isUpperCase(c)) {
-                sb.append(StringUtils.UNDERLINE);
+                sb.append(StrUtils.UNDERLINE);
             }
             if (upperCase[0]) {
                 //统一都转大写
@@ -365,7 +371,7 @@ public class StringUtils extends StrUtil {
      * @return 下划线字符串
      */
     public static String convertCamelToUnderline(String input) {
-        if (StringUtils.isBlank(input)) {
+        if (org.apache.commons.lang3.StringUtils.isBlank(input)) {
             return null;
         }
         StringBuilder result = new StringBuilder();
@@ -383,4 +389,20 @@ public class StringUtils extends StrUtil {
         }
         return result.toString();
     }
+
+    /**
+     * 占位符替换
+     * <p>
+     * 例子： String template = "name:{0},age:{1}";
+     * params = ["alex", 18];
+     * result : name:alex,age:18
+     *
+     * @param template 模板字符串
+     * @param params   填充参数
+     * @return 替换后的字符串 string
+     */
+    public static String format(String template, Object... params) {
+        return MessageFormat.format(template, params);
+    }
+
 }

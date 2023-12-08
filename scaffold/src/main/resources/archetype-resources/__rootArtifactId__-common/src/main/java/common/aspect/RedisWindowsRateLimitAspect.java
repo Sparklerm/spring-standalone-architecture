@@ -8,8 +8,8 @@ import ${groupId}.common.enums.RedisLimitType;
 import ${groupId}.common.exception.BizAssert;
 import ${groupId}.common.utils.IpUtils;
 import ${groupId}.common.utils.SpElUtils;
-import ${groupId}.common.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -33,7 +33,7 @@ import java.util.Objects;
  * Redis 窗口限流切面
  *
  * @author Alex Meng
- * @createDate 2023-10-07 上午 10:45
+ * @createDate 2023-10-07 10:45
  */
 @Slf4j
 @Aspect

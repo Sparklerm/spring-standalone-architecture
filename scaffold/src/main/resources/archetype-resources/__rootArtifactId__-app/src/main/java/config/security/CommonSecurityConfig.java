@@ -1,5 +1,9 @@
-package ${groupId}.security.component;
+package ${groupId}.config.security;
 
+import ${groupId}.security.component.DynamicAccessDecisionManager;
+import ${groupId}.security.component.DynamicSecurityFilter;
+import ${groupId}.security.component.DynamicSecurityMetadataSource;
+import ${groupId}.security.component.DynamicSecurityService;
 import ${groupId}.security.config.UserAccessDeniedHandler;
 import ${groupId}.security.config.UserAuthenticationEntryPoint;
 import ${groupId}.service.auth.model.ResourceDTO;
@@ -20,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Alex Meng
- * @createDate 2023-11-21 0021 上午 01:04
+ * @createDate 2023-11-21 01:04
  */
 @Configuration
 public class CommonSecurityConfig {

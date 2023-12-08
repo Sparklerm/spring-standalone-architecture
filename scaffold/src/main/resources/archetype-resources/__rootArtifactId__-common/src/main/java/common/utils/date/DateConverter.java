@@ -1,5 +1,6 @@
 package ${groupId}.common.utils.date;
 
+import cn.hutool.core.convert.ConvertException;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -79,7 +80,7 @@ public class DateConverter implements Converter<String, Date> {
             ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.systemDefault());
             return Date.from(zonedDateTime.toInstant());
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new ConvertException(e);
         }
     }
 }

@@ -14,6 +14,9 @@ import java.io.IOException;
 
 /**
  * 自定义无权限访问的返回结果
+ *
+ * @author Alex Meng
+ * @createDate 2023-11-21 01:04
  */
 public class UserAccessDeniedHandler implements AccessDeniedHandler {
     @Override

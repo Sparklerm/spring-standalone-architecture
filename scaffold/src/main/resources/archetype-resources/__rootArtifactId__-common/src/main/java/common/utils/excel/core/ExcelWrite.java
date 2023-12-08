@@ -1,17 +1,19 @@
 package ${groupId}.common.utils.excel.core;
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.util.StringUtils;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import ${groupId}.common.exception.BizAssert;
 import ${groupId}.common.exception.BizException;
-import ${groupId}.common.utils.CollectionUtils;
 import ${groupId}.common.utils.excel.common.ExcelFillCellMergeStrategy;
 import ${groupId}.common.utils.excel.common.ExcelWebConfig;
 import ${groupId}.common.utils.excel.model.ExcelCellMergeParam;
 import ${groupId}.common.utils.excel.model.ExcelWebExportParam;
 import ${groupId}.common.utils.excel.model.SheetData;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -25,7 +27,11 @@ import java.util.Objects;
  * @author Alex Meng
  * @createDate 2022 /12/9
  */
+@Slf4j
 public class ExcelWrite {
+
+    private ExcelWrite() {
+    }
 
     private static final String SHEET_DEFAULT_NAME = "Sheet";
 
@@ -55,7 +61,7 @@ public class ExcelWrite {
         ExcelWriter writer = null;
         try {
             int sheetIndex = 0;
-            writer = EasyExcel.write(response.getOutputStream()).autoCloseStream(Boolean.FALSE).build();
+            writer = EasyExcelFactory.write(response.getOutputStream()).autoCloseStream(Boolean.FALSE).build();
             List<SheetData> sheetDataList = exportParam.getSheetDataList();
 
             if (CollectionUtils.isEmpty(sheetDataList)) {
@@ -69,21 +75,21 @@ public class ExcelWrite {
                 String sheetName = StringUtils.isBlank(sheetData.getSheetName()) ? SHEET_DEFAULT_NAME.concat(String.valueOf(sheetIndex + 1)) : sheetData.getSheetName();
                 WriteSheet sheet;
                 if (sheetIndex == 0) {
-                    writer = EasyExcel.write(response.getOutputStream(), sheetData.getClazz()).build();
+                    writer = EasyExcelFactory.write(response.getOutputStream(), sheetData.getClazz()).build();
                     if (needCellMerge) {
-                        sheet = EasyExcel.writerSheet(sheetIndex++, sheetName)
+                        sheet = EasyExcelFactory.writerSheet(sheetIndex++, sheetName)
                                 .registerWriteHandler(new ExcelFillCellMergeStrategy(excelCellMergeParam.getMergeRowIndex(), excelCellMergeParam.getMergeColumnIndex())).build();
                     } else {
-                        sheet = EasyExcel.writerSheet(sheetIndex++, sheetName).build();
+                        sheet = EasyExcelFactory.writerSheet(sheetIndex++, sheetName).build();
                     }
                     writer.write(sheetData.getSheetList(), sheet);
                 } else {
                     if (needCellMerge) {
-                        sheet = EasyExcel.writerSheet(sheetIndex++, sheetName)
+                        sheet = EasyExcelFactory.writerSheet(sheetIndex++, sheetName)
                                 .registerWriteHandler(new ExcelFillCellMergeStrategy(excelCellMergeParam.getMergeRowIndex(), excelCellMergeParam.getMergeColumnIndex()))
                                 .head(sheetData.getClazz()).build();
                     } else {
-                        sheet = EasyExcel.writerSheet(sheetIndex++, sheetName).build();
+                        sheet = EasyExcelFactory.writerSheet(sheetIndex++, sheetName).build();
                     }
                     writer.write(sheetData.getSheetList(), sheet);
                 }
@@ -93,7 +99,6 @@ public class ExcelWrite {
             response.reset();
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
-            e.printStackTrace();
             BizAssert.fail(e.getMessage());
         } finally {
             assert writer != null;

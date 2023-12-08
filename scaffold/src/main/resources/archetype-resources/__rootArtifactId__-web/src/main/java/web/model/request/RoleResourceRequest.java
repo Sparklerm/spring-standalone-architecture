@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * @author Alex Meng
- * @createDate 2023-11-23 0023 上午 03:10
+ * @createDate 2023-11-23 03:10
  */
 @ApiModel("角色-资源操作请求参数")
 @Data

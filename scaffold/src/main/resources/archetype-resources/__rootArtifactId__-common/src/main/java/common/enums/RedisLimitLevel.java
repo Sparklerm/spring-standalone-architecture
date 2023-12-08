@@ -6,7 +6,7 @@ import lombok.Getter;
  * 限流级别
  *
  * @author Alex Meng
- * @createDate 2023-10-07 0007 上午 11:39
+ * @createDate 2023-10-07 11:39
  */
 @Getter
 public enum RedisLimitLevel {

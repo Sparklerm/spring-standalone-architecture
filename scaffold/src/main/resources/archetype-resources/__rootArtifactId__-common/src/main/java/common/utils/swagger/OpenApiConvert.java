@@ -12,9 +12,12 @@ import java.util.stream.Collectors;
 
 /**
  * @author Alex Meng
- * @createDate 2023-10-09 0009 上午 02:31
+ * @createDate 2023-10-09 02:31
  */
 public class OpenApiConvert {
+    private OpenApiConvert() {
+    }
+
     /**
      * 将OpenAPI对象转换为ApiInfo对象
      *

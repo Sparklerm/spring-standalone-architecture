@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  * @author Alex Meng
- * @createDate 2023-11-21 0021 下午 09:05
+ * @createDate 2023-11-21 21:05
  */
 @ApiModel("修改后台资源分类")
 @Data
@@ -25,4 +25,5 @@ public class UpdateResourceCategoryRequest implements Serializable {
     @ApiModelProperty("分类名称")
     @NotBlank(message = "分类名称不能为空")
     private String name;
+
 }

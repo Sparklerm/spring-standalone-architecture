@@ -19,10 +19,16 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
   # ======== Redis配置 ========
   redis:
-    host: 127.0.0.1
-    port: 6379
-    database: 0
-    timeout: 10000
+    redisson:
+      config: |
+        singleServerConfig:
+          address: "redis://127.0.0.1:6379"
+          database: 0
+          timeout: 10000
+        threads: 0
+        nettyThreads: 0
+        codec: !<org.redisson.codec.FstCodec> {}
+        transportMode: "NIO"
 
 # ======== 日志配置 ========
 logging:

@@ -5,6 +5,9 @@ package ${groupId}.common.constant;
  * @createDate 2023/2/13-9:41
  */
 public class NumberConstant {
+    private NumberConstant() {
+    }
+
     /**
      * 0
      */

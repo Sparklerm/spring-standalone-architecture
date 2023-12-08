@@ -3,10 +3,10 @@ package ${groupId}.common.exception;
 
 import ${groupId}.common.enums.BizCodeEnum;
 import ${groupId}.common.enums.StatusCodeEnumFormat;
-import ${groupId}.common.utils.StringUtils;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 
 /**
  * 断言处理类，用于抛出各种API异常
@@ -15,6 +15,10 @@ import java.util.Objects;
  * @createDate 2020-2-27
  */
 public class BizAssert {
+
+    private BizAssert() {
+    }
+
     /**
      * Fail.
      *
@@ -56,6 +60,12 @@ public class BizAssert {
         }
     }
 
+    public static void fail(boolean flag, StatusCodeEnumFormat errorCode) {
+        if (flag) {
+            throw new BizException(errorCode);
+        }
+    }
+
     public static void isNull(@Nullable Object object, StatusCodeEnumFormat status) {
         if (null != object) {
             throw new BizException(status);
@@ -69,13 +79,13 @@ public class BizAssert {
     }
 
     public static void notNull(@Nullable Object object, StatusCodeEnumFormat status) {
-        if (Objects.isNull(object)) {
+        if (ObjectUtils.isEmpty(object)) {
             throw new BizException(status);
         }
     }
 
     public static void notNull(@Nullable Object object, String message) {
-        if (Objects.isNull(object)) {
+        if (ObjectUtils.isEmpty(object)) {
             throw new BizException(message);
         }
     }

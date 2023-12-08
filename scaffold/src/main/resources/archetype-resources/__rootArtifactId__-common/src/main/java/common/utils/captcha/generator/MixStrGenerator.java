@@ -2,13 +2,13 @@ package ${groupId}.common.utils.captcha.generator;
 
 import cn.hutool.captcha.generator.AbstractGenerator;
 import cn.hutool.core.util.RandomUtil;
-import cn.hutool.core.util.StrUtil;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 混合字符串验证码生成器
  *
  * @author Alex Meng
- * @createDate 2023-10-08 上午 12:37
+ * @createDate 2023-10-08 12:37
  */
 public class MixStrGenerator extends AbstractGenerator {
 
@@ -25,8 +25,8 @@ public class MixStrGenerator extends AbstractGenerator {
 
     @Override
     public boolean verify(String code, String userInputCode) {
-        if (StrUtil.isNotBlank(userInputCode)) {
-            return StrUtil.equalsIgnoreCase(code, userInputCode);
+        if (StringUtils.isNotBlank(userInputCode)) {
+            return StringUtils.equalsIgnoreCase(code, userInputCode);
         }
         return false;
     }

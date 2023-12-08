@@ -16,6 +16,9 @@ import java.util.Objects;
 @Slf4j
 public class Ip2RegionUtils {
 
+    private Ip2RegionUtils() {
+    }
+
     /**
      * IP查询文件，需要放在resources目录下
      */

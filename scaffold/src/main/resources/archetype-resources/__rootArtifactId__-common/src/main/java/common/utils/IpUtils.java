@@ -4,8 +4,14 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * IP工具类
+ * @author MENGJIAO
  */
 public class IpUtils {
+
+    private IpUtils() {
+    }
+
+    private static final String UNKNOWN = "unknown";
 
     /**
      * 获取请求的IP地址
@@ -16,13 +22,13 @@ public class IpUtils {
     public static String getClientIp(HttpServletRequest request) {
         String clientIp = request.getHeader("X-Forwarded-For");
 
-        if (clientIp == null || clientIp.isEmpty() || "unknown".equalsIgnoreCase(clientIp)) {
+        if (clientIp == null || clientIp.isEmpty() || UNKNOWN.equalsIgnoreCase(clientIp)) {
             clientIp = request.getHeader("Proxy-Client-IP");
         }
-        if (clientIp == null || clientIp.isEmpty() || "unknown".equalsIgnoreCase(clientIp)) {
+        if (clientIp == null || clientIp.isEmpty() || UNKNOWN.equalsIgnoreCase(clientIp)) {
             clientIp = request.getHeader("WL-Proxy-Client-IP");
         }
-        if (clientIp == null || clientIp.isEmpty() || "unknown".equalsIgnoreCase(clientIp)) {
+        if (clientIp == null || clientIp.isEmpty() || UNKNOWN.equalsIgnoreCase(clientIp)) {
             clientIp = request.getRemoteAddr();
         }
 

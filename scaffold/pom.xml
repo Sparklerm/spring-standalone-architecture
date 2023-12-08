@@ -9,8 +9,6 @@
     <version>2.0</version>
     <packaging>maven-archetype</packaging>
 
-    <name>standalone-boot-archetype</name>
-
     <build>
         <extensions>
             <extension>

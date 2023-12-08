@@ -10,6 +10,9 @@ import java.util.List;
 
 /**
  * SpringSecurity白名单资源路径配置
+ *
+ * @author Alex Meng
+ * @createDate 2023-11-21 01:04
  */
 @Getter
 @Setter

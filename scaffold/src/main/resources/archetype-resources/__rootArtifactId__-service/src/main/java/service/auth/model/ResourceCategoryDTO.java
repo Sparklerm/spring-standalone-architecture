@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  * @author Alex Meng
- * @createDate 2023-11-21 0021 下午 08:31
+ * @createDate 2023-11-2 20:31
  */
 @Data
 public class ResourceCategoryDTO implements Serializable {

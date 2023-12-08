@@ -1,7 +1,8 @@
 package ${groupId}.common.filter;
 
 import ${groupId}.common.enums.HttpMethod;
-import ${groupId}.common.utils.StringUtils;
+import ${groupId}.common.utils.StrUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.ObjectUtils;
 
 import javax.servlet.Filter;
@@ -58,7 +59,7 @@ public class XssFilter implements Filter {
         if (method == null || HttpMethod.GET.matches(method) || HttpMethod.DELETE.matches(method)) {
             return true;
         }
-        return StringUtils.matches(url, excludes);
+        return StrUtils.matches(url, excludes);
     }
 
     @Override

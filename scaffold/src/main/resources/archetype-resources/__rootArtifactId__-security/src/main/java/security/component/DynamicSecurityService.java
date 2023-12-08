@@ -6,6 +6,9 @@ import java.util.Map;
 
 /**
  * 动态权限相关业务接口
+ *
+ * @author Alex Meng
+ * @createDate 2023-11-21 01:04
  */
 public interface DynamicSecurityService {
     /**

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * @author Alex Meng
- * @createDate 2023-11-23 0023 上午 02:27
+ * @createDate 2023-11-23 02:27
  */
 @Data
 @Builder
@@ -33,9 +33,5 @@ public class RoleUpdateDTO {
      * 启用状态：0->禁用；1->启用
      */
     private Integer status;
-
-    /**
-     * 排序字段
-     */
-    private Integer sort;
+    
 }

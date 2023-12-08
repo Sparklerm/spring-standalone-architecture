@@ -9,6 +9,10 @@ import java.util.concurrent.TimeUnit;
  * @createDate 2023/1/17
  */
 public class Constants {
+
+    private Constants() {
+    }
+
     /**
      * UTF-8 字符集
      */

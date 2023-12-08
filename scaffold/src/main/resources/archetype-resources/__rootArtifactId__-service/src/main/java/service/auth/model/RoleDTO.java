@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 /**
  * @author Alex Meng
- * @createDate 2023-11-23 0023 上午 02:39
+ * @createDate 2023-11-23 02:39
  */
 @Data
 @Builder
@@ -44,6 +44,11 @@ public class RoleDTO implements Serializable {
      * 启用状态：0->禁用；1->启用
      */
     private Integer status;
+
+    /**
+     * 是否为用户注册时绑定的默认角色：0->不是；1->是
+     */
+    private Integer isDefault;
 
     /**
      * 创建时间

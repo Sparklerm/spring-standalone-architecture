@@ -1,11 +1,13 @@
 package ${groupId}.common.utils;
 
-import ${groupId}.common.utils.encrypt.RASUtil;
+import cn.hutool.crypto.SecureUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Data;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collections;
 import java.util.Date;
@@ -16,14 +18,17 @@ import java.util.Map;
  * JWT工具类
  *
  * @author Alex Meng
- * @createDate 2023-10-30 0030 下午 10:27
+ * @createDate 2023-10-30 22:27
  */
-public class JWTUtil {
+public class JwtUtils {
 
-    public static String HEADER = "Authorization";
-    private static JwtConfig CONFIG;
+    /**
+     * 默认JWT标签头
+     */
+    public static final String HEADER = "Authorization";
+    private static JwtConfig jwtConfig;
 
-    private JWTUtil() {
+    private JwtUtils() {
     }
 
     /**
@@ -37,17 +42,17 @@ public class JWTUtil {
      * @param audience           接受者
      */
     public static void initialize(String issuer, String secretKey, long expirationTime, String header, List<String> issuers, SignatureAlgorithm signatureAlgorithm, String audience) {
-        HEADER = StringUtils.isNotBlank(header) ? header : HEADER;
-        CONFIG = new JwtConfig();
-        CONFIG.setIssuer(issuer);
-        CONFIG.setSecretKey(secretKey);
-        CONFIG.setExpirationTime(expirationTime);
+        jwtConfig = new JwtConfig();
+        jwtConfig.setHeader(StringUtils.isNotBlank(header) ? header : HEADER);
+        jwtConfig.setIssuer(issuer);
+        jwtConfig.setSecretKey(secretKey);
+        jwtConfig.setExpirationTime(expirationTime);
         if (CollectionUtils.isEmpty(issuers)) {
             issuers = Collections.singletonList(issuer);
         }
-        CONFIG.setIssuers(issuers);
-        CONFIG.setSignatureAlgorithm(signatureAlgorithm);
-        CONFIG.setAudience(audience);
+        jwtConfig.setIssuers(issuers);
+        jwtConfig.setSignatureAlgorithm(signatureAlgorithm);
+        jwtConfig.setAudience(audience);
     }
 
     /**
@@ -68,7 +73,7 @@ public class JWTUtil {
      * @return Token
      */
     public static String generateToken(String subject) {
-        return generateToken(subject, CONFIG.getExpirationTime());
+        return generateToken(subject, jwtConfig.getExpirationTime());
     }
 
     /**
@@ -83,10 +88,10 @@ public class JWTUtil {
         Date expiration = new Date(now.getTime() + expirationTime * 1000);
 
         return Jwts.builder()
-                .signWith(CONFIG.getSignatureAlgorithm(), CONFIG.getSecretKey())
+                .signWith(jwtConfig.getSignatureAlgorithm(), jwtConfig.getSecretKey())
                 .setSubject(subject)
-                .setIssuer(CONFIG.getIssuer())
-                .setAudience(CONFIG.getAudience())
+                .setIssuer(jwtConfig.getIssuer())
+                .setAudience(jwtConfig.getAudience())
                 .setIssuedAt(now)
                 .setExpiration(expiration)
                 .compact();
@@ -105,10 +110,10 @@ public class JWTUtil {
         Date expiration = new Date(now.getTime() + expirationTime * 1000);
 
         JwtBuilder jwtBuilder = Jwts.builder()
-                .signWith(CONFIG.getSignatureAlgorithm(), CONFIG.getSecretKey())
+                .signWith(jwtConfig.getSignatureAlgorithm(), jwtConfig.getSecretKey())
                 .setSubject(subject)
-                .setIssuer(CONFIG.getIssuer())
-                .setAudience(CONFIG.getAudience())
+                .setIssuer(jwtConfig.getIssuer())
+                .setAudience(jwtConfig.getAudience())
                 .setIssuedAt(now)
                 .setExpiration(expiration);
         jwtBuilder.addClaims(payload);
@@ -123,7 +128,7 @@ public class JWTUtil {
      * @return Token
      */
     public static String generateToken(String subject, Map<String, Object> payload) {
-        return generateToken(subject, payload, CONFIG.getExpirationTime());
+        return generateToken(subject, payload, jwtConfig.getExpirationTime());
     }
 
     /**
@@ -133,7 +138,7 @@ public class JWTUtil {
      * @return Token
      */
     public static String generateToken(Map<String, Object> payload) {
-        return generateToken(null, payload, CONFIG.getExpirationTime());
+        return generateToken(null, payload, jwtConfig.getExpirationTime());
     }
 
     /**
@@ -156,7 +161,7 @@ public class JWTUtil {
      * @return 加密后的token
      */
     public static String encodeToken(String token, String secretKey) {
-        return RASUtil.rasEncode(secretKey, token);
+        return SecureUtil.aes(secretKey.getBytes()).encryptHex(token);
     }
 
     /**
@@ -167,7 +172,7 @@ public class JWTUtil {
      * @return 解密后的token
      */
     public static String decodeToken(String token, String secretKey) {
-        return RASUtil.rasDecode(secretKey, token);
+        return SecureUtil.aes(secretKey.getBytes()).decryptStr(token);
     }
 
     /**
@@ -178,7 +183,7 @@ public class JWTUtil {
      */
     public static boolean verifyToken(String token) {
         try {
-            Jwts.parser().setSigningKey(CONFIG.getSecretKey()).parseClaimsJws(token);
+            Jwts.parser().setSigningKey(jwtConfig.getSecretKey()).parseClaimsJws(token);
             return true;
         } catch (Exception e) {
             return false;
@@ -193,7 +198,7 @@ public class JWTUtil {
      */
     public static Claims getTokenClaims(String token) {
         return Jwts.parser()
-                .setSigningKey(CONFIG.getSecretKey())
+                .setSigningKey(jwtConfig.getSecretKey())
                 .parseClaimsJws(token)
                 .getBody();
     }
@@ -226,7 +231,7 @@ public class JWTUtil {
      */
     public static boolean verifyTokenIssuer(String token) {
         boolean flag = false;
-        for (String issuer : CONFIG.issuers) {
+        for (String issuer : jwtConfig.issuers) {
             if (getTokenClaims(token).getIssuer().equals(issuer)) {
                 flag = true;
                 break;
@@ -257,6 +262,10 @@ public class JWTUtil {
 
     @Data
     public static class JwtConfig {
+        /**
+         * JwtToken 标签头
+         */
+        private String header;
         /**
          * 签发者
          */

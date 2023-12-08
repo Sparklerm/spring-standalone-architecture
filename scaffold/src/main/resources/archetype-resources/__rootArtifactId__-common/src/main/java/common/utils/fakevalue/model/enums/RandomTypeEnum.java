@@ -1,6 +1,7 @@
 package ${groupId}.common.utils.fakevalue.model.enums;
 
-import ${groupId}.common.utils.StringUtils;
+import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
  * @author Alex Meng
  * @createDate 2022 /12/5
  */
+@Getter
 public enum RandomTypeEnum {
     /**
      * String random type enum.
@@ -122,6 +124,12 @@ public enum RandomTypeEnum {
      */
     HOSPITAL("医院名");
 
+    /**
+     * -- GETTER --
+     * Gets value.
+     *
+     * @return the value
+     */
     private final String value;
 
     RandomTypeEnum(String value) {
@@ -155,12 +163,4 @@ public enum RandomTypeEnum {
         return null;
     }
 
-    /**
-     * Gets value.
-     *
-     * @return the value
-     */
-    public String getValue() {
-        return value;
-    }
 }

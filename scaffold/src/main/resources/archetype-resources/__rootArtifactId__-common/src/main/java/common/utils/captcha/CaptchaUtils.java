@@ -14,7 +14,7 @@ import lombok.Getter;
  * PS: 返回的验证码为base64格式 及 校验值
  *
  * @author Alex Meng
- * @createDate 2023-10-07 下午 11:28
+ * @createDate 2023-10-07 23:28
  */
 public class CaptchaUtils {
 
@@ -30,6 +30,8 @@ public class CaptchaUtils {
      * 默认验证码长度
      */
     private static final int DEFAULT_VERIFY_LENGTH = 4;
+
+    private static final String DEFAULT_IMG_BASE64 = "data:image/png;base64,";
 
     private CaptchaUtils() {
     }
@@ -49,7 +51,7 @@ public class CaptchaUtils {
         lineCaptcha.setGenerator(randomGenerator);
         // 生成验证码
         lineCaptcha.createCode();
-        return new CaptchaData("data:image/png;base64," + lineCaptcha.getImageBase64(), lineCaptcha.getCode());
+        return new CaptchaData(DEFAULT_IMG_BASE64 + lineCaptcha.getImageBase64(), lineCaptcha.getCode());
     }
 
     /**
@@ -65,7 +67,7 @@ public class CaptchaUtils {
         LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(imgWidth, imgHeight);
         lineCaptcha.setGenerator(mixStrGenerator);
         lineCaptcha.createCode();
-        return new CaptchaData("data:image/png;base64," + lineCaptcha.getImageBase64(), lineCaptcha.getCode());
+        return new CaptchaData(DEFAULT_IMG_BASE64 + lineCaptcha.getImageBase64(), lineCaptcha.getCode());
     }
 
     /**
@@ -98,7 +100,7 @@ public class CaptchaUtils {
             String[] split = code.split("/");
             computeResult = String.valueOf(Integer.parseInt(split[0]) / Integer.parseInt(split[1]));
         }
-        return new CaptchaData("data:image/png;base64," + lineCaptcha.getImageBase64(), computeResult);
+        return new CaptchaData(DEFAULT_IMG_BASE64 + lineCaptcha.getImageBase64(), computeResult);
     }
 
     /**
@@ -148,11 +150,6 @@ public class CaptchaUtils {
             return mixStrCaptcha(DEFAULT_IMG_WIDTH, DEFAULT_IMG_HEIGHT, DEFAULT_VERIFY_LENGTH);
         }
         return mathCaptcha(DEFAULT_IMG_WIDTH, DEFAULT_IMG_HEIGHT);
-    }
-
-    public static void main(String[] args) {
-        CaptchaData captchaData = generatorCaptcha(CaptchaType.MIX_STR, 4);
-        System.out.println(captchaData);
     }
 
     @Getter

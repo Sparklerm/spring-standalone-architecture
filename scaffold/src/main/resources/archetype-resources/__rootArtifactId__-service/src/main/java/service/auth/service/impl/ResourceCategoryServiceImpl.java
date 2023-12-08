@@ -1,6 +1,5 @@
 package ${groupId}.service.auth.service.impl;
 
-import ${groupId}.common.constant.RedisCacheKey;
 import ${groupId}.common.exception.BizAssert;
 import ${groupId}.common.utils.BeanCopierUtils;
 import ${groupId}.dao.auth.dao.IResourceCategoryDao;
@@ -15,7 +14,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author Alex Meng
- * @createDate 2023-11-21 0021 下午 08:32
+ * @createDate 2023-11-21 20:32
  */
 @Service
 public class ResourceCategoryServiceImpl implements IResourceCategoryService {
@@ -35,8 +34,8 @@ public class ResourceCategoryServiceImpl implements IResourceCategoryService {
     public Integer create(String name) {
         ResourceCategoryPO esxiRc = resourceCategoryDao.selectByName(name);
         BizAssert.isNull(esxiRc, "分类名称已存在");
-        ResourceCategoryPO categoryPO = ResourceCategoryPO.builder().name(name).build();
-        return resourceCategoryDao.insert(categoryPO);
+        ResourceCategoryPO category = ResourceCategoryPO.builder().name(name).build();
+        return resourceCategoryDao.insert(category);
     }
 
     @Override

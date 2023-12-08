@@ -28,6 +28,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class SystemInfoUtils {
 
+    private SystemInfoUtils() {
+    }
+
     /**
      * 获取系统当前参数
      *

@@ -14,6 +14,9 @@ import java.io.IOException;
 
 /**
  * 自定义未登录或者token失效时的返回结果
+ *
+ * @author Alex Meng
+ * @createDate 2023-11-21 01:04
  */
 public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
 

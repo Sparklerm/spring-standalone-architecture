@@ -1,7 +1,6 @@
 package ${groupId}.common.utils.fakevalue.model.enums;
 
-
-import ${groupId}.common.utils.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;

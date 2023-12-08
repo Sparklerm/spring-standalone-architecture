@@ -7,6 +7,10 @@ package ${groupId}.common.constant;
  * @createDate 2023/2/11-21:50
  */
 public class BizConstant {
+
+    private BizConstant() {
+    }
+
     /**
      * 默认Token头
      */

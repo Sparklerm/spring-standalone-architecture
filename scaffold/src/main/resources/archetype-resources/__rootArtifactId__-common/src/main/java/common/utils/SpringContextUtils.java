@@ -1,5 +1,6 @@
 package ${groupId}.common.utils;
 
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -16,7 +17,13 @@ public class SpringContextUtils implements ApplicationContextAware {
 
     /**
      * spring应用上下文
+     * -- GETTER --
+     *  Gets application context.
+     *
+     * @return ApplicationContext application context
+
      */
+    @Getter
     private static ApplicationContext applicationContext;
 
     /**
@@ -28,15 +35,6 @@ public class SpringContextUtils implements ApplicationContextAware {
     public static void registerBean(String beanName, Object bean) {
         applicationContext.getAutowireCapableBeanFactory().autowireBean(bean);
         applicationContext.getAutowireCapableBeanFactory().initializeBean(bean, beanName);
-    }
-
-    /**
-     * Gets application context.
-     *
-     * @return ApplicationContext application context
-     */
-    public static ApplicationContext getApplicationContext() {
-        return applicationContext;
     }
 
     /**

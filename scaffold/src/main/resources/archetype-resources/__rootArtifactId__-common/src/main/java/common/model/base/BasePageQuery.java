@@ -2,7 +2,7 @@ package ${groupId}.common.model.base;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import ${groupId}.common.enums.QueryOrderEnum;
-import ${groupId}.common.utils.StringUtils;
+import ${groupId}.common.utils.StrUtils;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -72,8 +72,8 @@ public class BasePageQuery<T> implements Serializable {
      */
     public void setSortField(String sortField) {
         String sortFieldTmp = sortField;
-        if (this.enableCamelToUnderline) {
-            sortFieldTmp = StringUtils.convertCamelToUnderline(sortField);
+        if (Boolean.TRUE.equals(this.enableCamelToUnderline)) {
+            sortFieldTmp = StrUtils.convertCamelToUnderline(sortField);
         }
         this.sortField = sortFieldTmp;
     }

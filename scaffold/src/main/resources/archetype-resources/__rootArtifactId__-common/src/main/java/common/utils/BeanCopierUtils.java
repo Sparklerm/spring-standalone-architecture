@@ -21,7 +21,6 @@ public class BeanCopierUtils {
     private BeanCopierUtils() {
     }
 
-
     /**
      * 简单属性拷贝，通过反序列化方式实现Copy，适用于属性名一致的对象
      *
@@ -33,7 +32,6 @@ public class BeanCopierUtils {
      */
     public static <S, T> T copyProperties(S source, Class<T> targetClass) {
         String sourceJson = JsonUtils.toJson(source);
-        log.info("sourceJson:{}", sourceJson);
         return JsonUtils.toObj(sourceJson, targetClass);
     }
 
@@ -126,6 +124,5 @@ public class BeanCopierUtils {
          */
         void callBack(S s, T t);
     }
-
 
 }

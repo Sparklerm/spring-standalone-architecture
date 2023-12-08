@@ -6,6 +6,10 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * @author Alex Meng
+ * @createDate 2023-11-2 20:31
+ */
 @Data
 public class ResourceDTO implements Serializable {
 

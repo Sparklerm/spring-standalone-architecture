@@ -6,7 +6,6 @@ import ${groupId}.security.config.CustomAuthFilter;
 import ${groupId}.security.config.IgnoreUrlsConfig;
 import ${groupId}.security.config.UserAccessDeniedHandler;
 import ${groupId}.security.config.UserAuthenticationEntryPoint;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -22,6 +21,8 @@ import javax.annotation.Resource;
 
 /**
  * SpringSecurity 配置
+ *
+ * @author MENGJIAO
  */
 @Configuration
 @EnableWebSecurity
@@ -37,14 +38,13 @@ public class WebSecurityConfig {
     private CustomAuthFilter customAuthFilter;
     @Resource
     private IgnoreUrlsConfig ignoreUrlsConfig;
-    @Autowired(required = false)
+    @Resource
     private DynamicSecurityService dynamicSecurityService;
-    @Autowired(required = false)
+    @Resource
     private DynamicSecurityFilter dynamicSecurityFilter;
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
         HttpSecurity httpSecurity = http
                 // 关闭跨站请求防护及禁用session
                 .csrf()

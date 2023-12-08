@@ -10,9 +10,9 @@ import org.springframework.security.web.FilterInvocation;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
 
+import javax.annotation.Resource;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -21,21 +21,21 @@ import java.io.IOException;
 
 /**
  * 动态权限过滤器，用于实现基于路径的动态权限过滤
+ *
+ * @author Alex Meng
+ * @createDate 2023-11-21 01:04
  */
 public class DynamicSecurityFilter extends AbstractSecurityInterceptor implements Filter {
 
-    @Autowired
+    @Resource
     private DynamicSecurityMetadataSource dynamicSecurityMetadataSource;
-    @Autowired
+    @Resource
     private IgnoreUrlsConfig ignoreUrlsConfig;
+
 
     @Autowired
     public void setMyAccessDecisionManager(DynamicAccessDecisionManager dynamicAccessDecisionManager) {
         super.setAccessDecisionManager(dynamicAccessDecisionManager);
-    }
-
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
     }
 
     @Override
@@ -62,10 +62,6 @@ public class DynamicSecurityFilter extends AbstractSecurityInterceptor implement
         } finally {
             super.afterInvocation(token, null);
         }
-    }
-
-    @Override
-    public void destroy() {
     }
 
     @Override

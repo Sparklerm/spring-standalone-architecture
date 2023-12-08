@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * 鉴权用户信息
  *
  * @author Alex Meng
- * @createDate 2023-11-20 0020 下午 09:26
+ * @createDate 2023-11-20 21:26
  */
 @Data
 public class AuthUserDetails implements UserDetails {

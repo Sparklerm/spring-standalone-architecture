@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
  * 登录结果
  *
  * @author Alex Meng
- * @createDate 2023-11-20 0020 下午 10:54
+ * @createDate 2023-11-20 22:54
  */
 @Data
 @Builder
@@ -19,7 +19,7 @@ public class UserLoginResultDTO {
     /**
      * token
      */
-    private String token;
+    private String accessToken;
     /**
      * 刷新token
      */

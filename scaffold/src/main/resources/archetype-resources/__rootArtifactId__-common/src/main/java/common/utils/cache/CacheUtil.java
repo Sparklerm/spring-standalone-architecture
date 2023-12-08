@@ -30,10 +30,13 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class CacheUtil {
 
+    private CacheUtil() {
+    }
+
     /**
      * 本地缓存列表
      */
-    private static Map<String, Cache<String, Object>> LOCAL_CACHE_MAP = new ConcurrentHashMap<>();
+    private static final Map<String, Cache<String, Object>> LOCAL_CACHE_MAP = new ConcurrentHashMap<>();
 
     /**
      * 创建本地缓存

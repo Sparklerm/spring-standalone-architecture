@@ -4,7 +4,7 @@ package ${groupId}.common.utils;
  * 数学工具类
  *
  * @author Alex Meng
- * @createDate 2023-05-05 9:25
+ * @createDate 2023-05-05 09:25
  */
 public class NumberUtils {
     private NumberUtils() {
@@ -144,7 +144,7 @@ public class NumberUtils {
             sum += values[i] * weights[i];
             sumWeight += weights[i];
         }
-        return sum / sumWeight;
+        return sumWeight != 0 ? sum / sumWeight : 0;
     }
 
     /**
@@ -157,7 +157,7 @@ public class NumberUtils {
      */
     public static int[] randomCommon(int min, int max, int n) {
         if (n > (max - min + 1) || max < min) {
-            return null;
+            return new int[0];
         }
         int[] result = new int[n];
         int count = 0;

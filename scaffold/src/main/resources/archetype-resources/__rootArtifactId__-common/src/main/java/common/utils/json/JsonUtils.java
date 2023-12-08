@@ -19,8 +19,8 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import ${groupId}.common.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -42,7 +42,7 @@ import java.util.TimeZone;
  * @createDate 2023-01-02
  */
 @Slf4j
-public class JsonUtils extends JSONUtil {
+public class JsonUtils {
 
     private JsonUtils() {
     }
@@ -77,8 +77,10 @@ public class JsonUtils extends JSONUtil {
         javaTimeModule.addSerializer(LocalTime.class, new LocalTimeSerializer(localTimeFormatter));
         javaTimeModule.addDeserializer(LocalTime.class, new LocalTimeDeserializer(localTimeFormatter));
 
-        // 序列化时将类的数据类型存入json，以便反序列化的时候转换成正确的类型
-        // objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
+        /*
+        序列化时将类的数据类型存入json，以便反序列化的时候转换成正确的类型
+        objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
+        */
 
         objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
         //null的属性不进行序列化
@@ -124,7 +126,7 @@ public class JsonUtils extends JSONUtil {
                         gen.writeEndArray();
                         return;
                     } else if (Objects.equals(field.getType(), Map.class)) {
-                        //map型空值返回{}
+                        //map型空值返回‘{}’
                         gen.writeStartObject();
                         gen.writeEndObject();
                         return;
@@ -204,7 +206,7 @@ public class JsonUtils extends JSONUtil {
             map = objectMapper.readValue(mapJsonStr, objectMapper.getTypeFactory().constructParametricType(Map.class, kClazz, vClazz));
         } catch (JsonProcessingException e) {
             log.error("Json to Map exception", e);
-            return null;
+            return Collections.emptyMap();
         }
         return map;
     }
@@ -218,9 +220,9 @@ public class JsonUtils extends JSONUtil {
      */
     public static <T> List<Map<Object, T>> toListMap(String jsonStr, Class<T> clz) {
         if (StringUtils.isBlank(jsonStr) || clz == null) {
-            return null;
+            return Collections.emptyList();
         }
-        List<String> mapJsonStr = toList(jsonStr, String.class);
+        List<String> mapJsonStr = JSONUtil.toList(jsonStr, String.class);
 
         assert mapJsonStr != null;
 

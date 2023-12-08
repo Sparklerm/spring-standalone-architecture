@@ -21,6 +21,10 @@ import java.util.Optional;
  */
 @Slf4j
 public class SpElUtils {
+
+    private SpElUtils() {
+    }
+
     private static final ExpressionParser parser = new SpelExpressionParser();
     private static final DefaultParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
 

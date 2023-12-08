@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  * @author Alex Meng
- * @createDate 2023-11-23 0023 上午 11:41
+ * @createDate 2023-11-23 11:41
  */
 @Data
 @ApiModel("更新用户信息请求参数")
@@ -16,7 +16,7 @@ public class UserUpdateRequest implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("用户ID")
+    @ApiModelProperty("用户标识")
     private String username;
 
     @ApiModelProperty("密码")

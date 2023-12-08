@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
  * Redis 滑动窗口限流注解
  *
  * @author Alex Meng
- * @createDate 2023-10-07 上午 10:00
+ * @createDate 2023-10-07 10:00
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

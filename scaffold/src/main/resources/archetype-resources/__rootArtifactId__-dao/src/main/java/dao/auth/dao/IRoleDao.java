@@ -31,6 +31,12 @@ public interface IRoleDao extends BaseMapper<RolePO> {
      * @return 资源列表
      */
     List<ResourcePO> selectResourceListByRoleId(@Param("roleId") Long roleId);
+
+    /**
+     * 查询默认角色
+     * @return 角色列表
+     */
+    List<RolePO> selectDefaultRole();
 }
 
 

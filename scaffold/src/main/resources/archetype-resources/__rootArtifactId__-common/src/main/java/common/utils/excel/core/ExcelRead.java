@@ -1,6 +1,6 @@
 package ${groupId}.common.utils.excel.core;
 
-import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.EasyExcelFactory;
 import com.alibaba.excel.read.listener.PageReadListener;
 import com.alibaba.excel.read.metadata.ReadSheet;
 import ${groupId}.common.utils.excel.common.ExcelCommon;
@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -23,7 +24,10 @@ import java.util.List;
  * @createDate 2022 /12/9
  */
 @Slf4j
-public class ExcelRead<T> {
+public class ExcelRead {
+
+    private ExcelRead() {
+    }
 
     /**
      * 读取Excel
@@ -37,7 +41,7 @@ public class ExcelRead<T> {
         List<T> excelData = new ArrayList<>();
         List<ReadSheet> readSheets = ExcelCommon.hasSheets(fileName);
         for (ReadSheet readSheet : readSheets) {
-            EasyExcel.read(fileName, clazz, new PageReadListener<T>(excelData::addAll))
+            EasyExcelFactory.read(fileName, clazz, new PageReadListener<T>(excelData::addAll))
                     .sheet()
                     .sheetNo(readSheet.getSheetNo())
                     .doRead();
@@ -57,7 +61,7 @@ public class ExcelRead<T> {
         List<T> excelData = new ArrayList<>();
         List<ReadSheet> readSheets = ExcelCommon.hasSheets(fileName);
         for (ReadSheet readSheet : readSheets) {
-            EasyExcel.read(fileName, clazz, new PageReadListener<T>(excelData::addAll))
+            EasyExcelFactory.read(fileName, clazz, new PageReadListener<T>(excelData::addAll))
                     .sheet()
                     .headRowNumber(headRowNumber)
                     .sheetNo(readSheet.getSheetNo())
@@ -75,14 +79,14 @@ public class ExcelRead<T> {
      */
     public static List<ExcelSheetData> read(String fileName, ExcelSheetParam... params) {
         List<ExcelSheetParam> excelSheetParams = Arrays.asList(params);
-        if (excelSheetParams.size() == 0) {
-            return null;
+        if (excelSheetParams.isEmpty()) {
+            return Collections.emptyList();
         }
         List<ExcelSheetData> excelSheets = new ArrayList<>();
 
         for (ExcelSheetParam param : excelSheetParams) {
             List sheetData = new ArrayList<>();
-            EasyExcel.read(fileName)
+            EasyExcelFactory.read(fileName)
                     .sheet()
                     .sheetNo(param.getIndex())
                     .head(param.getClazz())
@@ -106,7 +110,7 @@ public class ExcelRead<T> {
         List<T> excelData = new ArrayList<>();
         List<ReadSheet> readSheets = ExcelCommon.hasSheets(file);
         for (ReadSheet readSheet : readSheets) {
-            EasyExcel.read(file.getInputStream(), clazz, new CommonListener<T>(excelData::addAll))
+            EasyExcelFactory.read(file.getInputStream(), clazz, new CommonListener<T>(excelData::addAll))
                     .sheet()
                     .sheetNo(readSheet.getSheetNo())
                     .doRead();
@@ -123,13 +127,13 @@ public class ExcelRead<T> {
      */
     public static List<ExcelSheetData> read(MultipartFile file, ExcelSheetParam... params) throws IOException {
         List<ExcelSheetParam> excelSheetParams = Arrays.asList(params);
-        if (excelSheetParams.size() == 0) {
-            return null;
+        if (excelSheetParams.isEmpty()) {
+            return Collections.emptyList();
         }
         List<ExcelSheetData> excelSheets = new ArrayList<>();
         for (ExcelSheetParam param : excelSheetParams) {
             List sheetData = new ArrayList<>();
-            EasyExcel.read(file.getInputStream())
+            EasyExcelFactory.read(file.getInputStream())
                     .sheet()
                     .sheetNo(param.getIndex())
                     .head(param.getClazz())

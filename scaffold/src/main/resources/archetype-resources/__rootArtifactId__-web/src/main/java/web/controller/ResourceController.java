@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * @author Alex Meng
- * @createDate 2023-11-21 0021 上午 03:11
+ * @createDate 2023-11-21 03:11
  */
 @RestController
 @RequestMapping("/resource")

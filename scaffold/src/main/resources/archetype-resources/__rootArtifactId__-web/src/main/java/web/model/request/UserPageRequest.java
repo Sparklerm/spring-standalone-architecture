@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  * @author Alex Meng
- * @createDate 2023-11-23 0023 上午 11:30
+ * @createDate 2023-11-23 11:30
  */
 @Data
 @ApiModel(value = "用户分页查询请求参数")

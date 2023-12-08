@@ -1,6 +1,7 @@
 package ${groupId}.service.auth.service.impl;
 
 import cn.hutool.core.codec.Base64;
+import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import ${groupId}.common.constant.NumberConstant;
@@ -9,9 +10,8 @@ import ${groupId}.common.enums.BizCodeEnum;
 import ${groupId}.common.enums.YesNoEnum;
 import ${groupId}.common.exception.BizAssert;
 import ${groupId}.common.utils.BeanCopierUtils;
-import ${groupId}.common.utils.JWTUtil;
-import ${groupId}.common.utils.StringUtils;
-import ${groupId}.common.utils.encrypt.AESUtil;
+import ${groupId}.common.utils.JwtUtils;
+import ${groupId}.common.utils.StrUtils;
 import ${groupId}.common.utils.json.JsonUtils;
 import ${groupId}.common.utils.redis.RedisService;
 import ${groupId}.dao.auth.dao.IRoleDao;
@@ -27,6 +27,7 @@ import ${groupId}.service.auth.model.RoleDTO;
 import ${groupId}.service.auth.model.UserDTO;
 import ${groupId}.service.auth.model.UserLoginResultDTO;
 import ${groupId}.service.auth.service.IUserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -37,12 +38,13 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 /**
  * @author Alex Meng
- * @createDate 2023-11-23 0023 上午 03:33
+ * @createDate 2023-11-23 03:33
  */
 @Service
 public class UserServiceImpl implements IUserService {
@@ -67,13 +69,16 @@ public class UserServiceImpl implements IUserService {
         UserPO existUser = userDao.selectByUsername(userDTO.getUsername());
         BizAssert.isNull(existUser, BizCodeEnum.USERNAME_ALREADY_REGISTER);
         // 创建用户
-        UserPO userPO = BeanCopierUtils.copyProperties(userDTO, UserPO.class);
-        userPO.setStatus(YesNoEnum.YES.getKey());
+        UserPO user = BeanCopierUtils.copyProperties(userDTO, UserPO.class);
+        user.setStatus(YesNoEnum.YES.getKey());
         String password = passwordEncoder.encode(userDTO.getPassword());
-        userPO.setPassword(password);
-        userDao.insert(userPO);
+        user.setPassword(password);
+        userDao.insert(user);
+        // 绑定默认角色
+        List<RolePO> defaultRoles = roleDao.selectDefaultRole();
+        updateHasRole(user.getId(), defaultRoles.stream().map(RolePO::getId).collect(Collectors.toList()));
         // 返回结果
-        return BeanCopierUtils.copyProperties(userPO, UserDTO.class);
+        return BeanCopierUtils.copyProperties(user, UserDTO.class);
     }
 
     @Override
@@ -85,15 +90,15 @@ public class UserServiceImpl implements IUserService {
         // 在认证信息authenticate中获取登录成功后的用户信息
         AuthUserDetails userInfo = (AuthUserDetails) authenticate.getPrincipal();
         //  将当前验证信息加密后生成token
-        String encodeSubject = AESUtil.encode(jwtSecret, JsonUtils.toJsonStr(userInfo.getUser()));
-        String token = JWTUtil.generateToken(encodeSubject);
+        String encodeSubject = SecureUtil.aes(jwtSecret.getBytes()).encryptHex(JsonUtils.toJson(userInfo.getUser()));
+        String token = JwtUtils.generateToken(encodeSubject);
         // 将token存入redis，并设置过期时间用于校验
-        redisService.setString(StringUtils.format(RedisCacheKey.USER_TOKEN, userInfo.getUser().getUsername()),
+        redisService.setString(StrUtils.format(RedisCacheKey.User.USER_TOKEN, userInfo.getUser().getUsername()),
                 token,
                 NumberConstant.TWO_HOURS,
                 TimeUnit.SECONDS);
         return UserLoginResultDTO.builder()
-                .token(Base64.encode(token))
+                .accessToken(Base64.encode(token))
                 .build();
     }
 
@@ -118,11 +123,11 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void logout(String username) {
         // 移除redis中的token
-        redisService.remove(StringUtils.format(RedisCacheKey.USER_TOKEN, username));
+        redisService.remove(StrUtils.format(RedisCacheKey.User.USER_TOKEN, username));
         // 移除redis中的用户信息
-        redisService.remove(StringUtils.format(RedisCacheKey.USER_INFO, username));
+        redisService.remove(StrUtils.format(RedisCacheKey.User.USER_INFO, username));
         // 移除redis中的用户权限
-        redisService.remove(StringUtils.format(RedisCacheKey.USER_PERMISSION, username));
+        redisService.remove(StrUtils.format(RedisCacheKey.User.USER_PERMISSION, username));
     }
 
     @Override
@@ -145,6 +150,11 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public Integer update(UserDTO userDTO) {
+        // 查询是否存在相同用户名的用户,如果存在则不允许修改
+        if (StringUtils.isNotBlank(userDTO.getUsername())) {
+            UserPO userPO = userDao.selectByUsername(userDTO.getUsername());
+            BizAssert.fail(!Objects.equals(userDTO.getId(), userPO.getId()), BizCodeEnum.USERNAME_ALREADY_REGISTER);
+        }
         UserPO userPO = BeanCopierUtils.copyProperties(userDTO, UserPO.class);
         return userDao.updateById(userPO);
     }

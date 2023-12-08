@@ -1,7 +1,7 @@
 package ${groupId}.common.utils.http;
 
-import ${groupId}.common.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -16,6 +16,9 @@ import javax.servlet.http.HttpSession;
  */
 @Slf4j
 public class HttpRequestUtils {
+
+    private HttpRequestUtils() {
+    }
 
     private static final String UNKNOW = "unknow";
 

@@ -9,7 +9,7 @@ ADD ./target/*.jar /app/app.jar
 
 #通过文件链接的方式修改 时区
 ENV TZ=Asia/Shanghai
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN ln -snf /usr/share/zoneinfo/"$TZ" /etc/localtime && echo "$TZ" > /etc/timezone
 
 # 设置暴露的端口号
 EXPOSE 8080

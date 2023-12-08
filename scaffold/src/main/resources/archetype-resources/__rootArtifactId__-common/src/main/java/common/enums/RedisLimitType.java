@@ -6,7 +6,7 @@ import lombok.Getter;
  * 窗口限流类型
  *
  * @author Alex Meng
- * @createDate 2023-10-07 0007 下午 12:14
+ * @createDate 2023-10-07 12:14
  */
 @Getter
 public enum RedisLimitType {

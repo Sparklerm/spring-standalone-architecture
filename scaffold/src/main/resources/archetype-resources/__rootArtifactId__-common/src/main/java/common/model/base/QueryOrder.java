@@ -6,7 +6,7 @@ import lombok.Data;
  * 查询排序
  *
  * @author Alex Meng
- * @createDate 2023-10-15 0015 下午 01:25
+ * @createDate 2023-10-15 13:25
  */
 @Data
 public class QueryOrder {

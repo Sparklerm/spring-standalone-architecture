@@ -1,6 +1,6 @@
 package ${groupId}.config.security;
 
-import ${groupId}.common.utils.JWTUtil;
+import ${groupId}.common.utils.JwtUtils;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +26,7 @@ public class JwtConfig {
 
     @PostConstruct
     public void jwtInit() {
-        JWTUtil.initialize(issuer, secretKey, expirationTime, header);
+        JwtUtils.initialize(issuer, secretKey, expirationTime, header);
         log.info("JWTUtil初始化完成");
     }
 }

@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  * @author Alex Meng
- * @createDate 2023-11-23 0023 上午 02:17
+ * @createDate 2023-11-23 02:17
  */
 @ApiModel("创建角色请求参数")
 @Data

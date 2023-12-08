@@ -9,12 +9,16 @@ import java.util.List;
  * 缓存常量
  *
  * @author Alex Meng
- * @createDate 2023-11-21 0021 下午 11:45
+ * @createDate 2023-11-21 23:45
  */
 public class CacheConstants {
+
+    private CacheConstants() {
+    }
+
     public static final String USER_CACHE_NAME = "userCache";
     public static final String VERIFY_CODE_CACHE_NAME = "verifyCodeCache";
-    public static final List<CaffeineCacheConfig> LOCAL_CAChE_CONFIG = Arrays.asList(
+    public static final List<CaffeineCacheConfig> LOCAL_CACHE_CONFIG = Arrays.asList(
             CaffeineCacheConfig.builder()
                     .cacheName(USER_CACHE_NAME)
                     .initialCapacity(100)

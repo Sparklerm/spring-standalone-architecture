@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * @author Alex Meng
- * @createDate 2023-11-21 0021 上午 04:55
+ * @createDate 2023-11-21 04:55
  */
 @RestController
 @RequestMapping("/user")
@@ -42,11 +42,11 @@ public class UserController {
     private IUserService userService;
 
     @ApiOperation(value = "用户注册")
-    @PostMapping(value = "/register")
+    @PostMapping("/register")
     @ResponseBody
-    public Result<UserDTO> register(@Valid @RequestBody UserRegisterRequest userRegisterRequest) {
-        UserDTO userDTO = BeanCopierUtils.copyProperties(userRegisterRequest, UserDTO.class);
-        UserDTO register = userService.register(userDTO);
+    public Result<UserVO> register(@Valid @RequestBody UserRegisterRequest request) {
+        UserDTO userDTO = BeanCopierUtils.copyProperties(request, UserDTO.class);
+        UserVO register = BeanCopierUtils.copyProperties(userService.register(userDTO), UserVO.class);
         return Result.success(register);
     }
 
@@ -58,19 +58,41 @@ public class UserController {
     }
 
     @ApiOperation(value = "获取当前登录用户信息")
-    @GetMapping(value = "/current")
+    @GetMapping(value = "/common/current")
     public Result<UserVO> getAdminInfo() {
-        AuthUserDetails context = AuthContextHolder.getInstance().getContext();
+        AuthUserDetails context = AuthContextHolder.getContext();
         UserVO userVO = BeanCopierUtils.copyProperties(context.getUser(), UserVO.class);
         return Result.success(userVO);
     }
 
     @ApiOperation(value = "登出功能")
-    @PostMapping(value = "/logout")
+    @PostMapping("/common/logout")
     public Result<String> logout() {
-        AuthUserDetails context = AuthContextHolder.getInstance().getContext();
+        AuthUserDetails context = AuthContextHolder.getContext();
         userService.logout(context.getUser().getUsername());
         return Result.success();
+    }
+
+    @ApiOperation("用户修改密码")
+    @PostMapping("/common/updatePassword")
+    public Result<String> updatePassword(@Valid @RequestBody UserUpdatePasswordRequest request) {
+        AuthUserDetails context = AuthContextHolder.getContext();
+        Integer update = userService.updatePassword(context.getUser().getId(), request.getOldPassword(), request.getNewPassword());
+        return update > 0 ? Result.updateSuccess(update) : Result.error();
+    }
+
+    @ApiOperation("修改当前登录用户信息")
+    @PostMapping("/common/updateCurrentUserInfo")
+    public Result<String> updateCurrentUserInfo(@RequestBody UserUpdateRequest request) {
+        // 获取当前登录用户信息
+        AuthUserDetails context = AuthContextHolder.getContext();
+        // 当前登录用户信息及更新信息填充到DTO
+        UserDTO userDTO = BeanCopierUtils.copyProperties(request, UserDTO.class);
+        userDTO.setId(context.getUser().getId());
+        // 不允许在此处修改密码
+        userDTO.setPassword(null);
+        Integer update = userService.update(userDTO);
+        return update > 0 ? Result.updateSuccess(update) : Result.error();
     }
 
     @ApiOperation("根据用户名或姓名分页获取用户列表")
@@ -88,7 +110,7 @@ public class UserController {
     }
 
     @ApiOperation("修改指定用户信息")
-    @PostMapping(value = "/update/{id}")
+    @PostMapping("/update/{id}")
     public Result<String> update(@PathVariable("id") Long id, @RequestBody UserUpdateRequest request) {
         UserDTO userDTO = BeanCopierUtils.copyProperties(request, UserDTO.class);
         userDTO.setId(id);
@@ -96,22 +118,16 @@ public class UserController {
         return update > 0 ? Result.updateSuccess(update) : Result.error();
     }
 
-    @ApiOperation("用户修改密码")
-    @PostMapping(value = "/updatePassword")
-    public Result<String> updatePassword(@Valid @RequestBody UserUpdatePasswordRequest request) {
-        Integer update = userService.updatePassword(request.getId(), request.getOldPassword(), request.getNewPassword());
-        return update > 0 ? Result.updateSuccess(update) : Result.error();
-    }
 
     @ApiOperation("删除指定用户")
-    @PostMapping(value = "/delete/{id}")
+    @PostMapping("/delete/{id}")
     public Result<String> delete(@PathVariable Long id) {
         Integer delete = userService.delete(id);
         return delete > 0 ? Result.deleteSuccess(delete) : Result.error();
     }
 
     @ApiOperation("修改帐号状态")
-    @PostMapping(value = "/updateStatus/{id}")
+    @PostMapping("/updateStatus/{id}")
     public Result<String> updateStatus(@PathVariable("id") Long id, @RequestBody UserUpdateRequest request) {
         UserDTO userDTO = UserDTO.builder().id(id).status(request.getStatus()).build();
         Integer update = userService.update(userDTO);
@@ -119,7 +135,7 @@ public class UserController {
     }
 
     @ApiOperation("给用户分配角色")
-    @PostMapping(value = "/role/update")
+    @PostMapping("/role/update")
     public Result<String> updateRole(@RequestBody UserRoleRequest request) {
         Integer bindRole = userService.updateHasRole(request.getUserId(), request.getRoleIds());
         return bindRole > 0 ? Result.updateSuccess(bindRole) : Result.error();
@@ -128,7 +144,7 @@ public class UserController {
     @ApiOperation("获取指定用户的角色")
     @GetMapping(value = "/role/{id}")
     public Result<List<RoleDTO>> getRoleList(@PathVariable Long id) {
-        List<RoleDTO> roleDTOS = userService.selectUserRoles(id);
-        return Result.success(roleDTOS);
+        List<RoleDTO> roleList = userService.selectUserRoles(id);
+        return Result.success(roleList);
     }
 }

@@ -18,9 +18,16 @@
 
     <select id="selectByUserId" resultType="${groupId}.dao.auth.po.RolePO">
         SELECT r.*
-        FROM ROLE r
+        FROM role r
                  LEFT JOIN user_role_relation urr ON
             r.id = urr.role_id
         WHERE urr.user_id = #{userId}
+    </select>
+
+    <select id="selectDefaultRole" resultType="${groupId}.dao.auth.po.RolePO">
+        SELECT *
+        FROM role r
+        WHERE r.status = 1
+          AND is_default = 1
     </select>
 </mapper>

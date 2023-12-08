@@ -1,6 +1,7 @@
 package ${groupId}.common.utils;
 
 import cn.hutool.http.HTMLFilter;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 转义和反转义工具类
@@ -8,6 +9,10 @@ import cn.hutool.http.HTMLFilter;
  * @author Alex Meng
  */
 public class EscapeUtil {
+
+    private EscapeUtil() {
+    }
+
     public static final String RE_HTML_MARK = "(<[^<]*?>)|(<[\\s]*?/[^<]*?>)|(<[^<]*?/[\\s]*?>)";
 
     private static final char[][] TEXT = new char[64][];
@@ -105,7 +110,8 @@ public class EscapeUtil {
         }
 
         StringBuilder tmp = new StringBuilder(content.length());
-        int lastPos = 0, pos = 0;
+        int lastPos = 0;
+        int pos = 0;
         char ch;
         while (lastPos < content.length()) {
             pos = content.indexOf("%", lastPos);

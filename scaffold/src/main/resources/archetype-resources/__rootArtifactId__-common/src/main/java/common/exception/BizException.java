@@ -1,5 +1,6 @@
 package ${groupId}.common.exception;
 
+import ${groupId}.common.enums.BizCodeEnum;
 import ${groupId}.common.enums.StatusCodeEnumFormat;
 import lombok.Getter;
 
@@ -16,61 +17,57 @@ public class BizException extends RuntimeException {
     /**
      * 错误码
      */
-    protected String errorCode;
+    private final String errorCode;
     /**
      * 错误信息
      */
-    protected String errorMsg;
+    private final String errorMessage;
+
 
     public BizException() {
         super();
+        this.errorMessage = BizCodeEnum.BIZ_ERROR.getMessage();
+        this.errorCode = BizCodeEnum.BIZ_ERROR.getCode();
+    }
+
+    public BizException(String errorMessage) {
+        super();
+        this.errorMessage = errorMessage;
+        this.errorCode = BizCodeEnum.BIZ_ERROR.getCode();
+    }
+
+    public BizException(String errorCode, String errorMessage) {
+        super(errorCode);
+        this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
     }
 
     public BizException(StatusCodeEnumFormat errorInfoInterface) {
         super(errorInfoInterface.getCode());
         this.errorCode = errorInfoInterface.getCode();
-        this.errorMsg = errorInfoInterface.getMessage();
+        this.errorMessage = errorInfoInterface.getMessage();
     }
 
     public BizException(StatusCodeEnumFormat errorInfoInterface, String message) {
         super(errorInfoInterface.getCode());
         this.errorCode = errorInfoInterface.getCode();
-        this.errorMsg = errorInfoInterface.getMessage() + " : " + message;
+        this.errorMessage = errorInfoInterface.getMessage() + " : " + message;
     }
 
     public BizException(StatusCodeEnumFormat errorInfoInterface, Throwable cause) {
         super(errorInfoInterface.getCode(), cause);
         this.errorCode = errorInfoInterface.getCode();
-        this.errorMsg = errorInfoInterface.getMessage();
+        this.errorMessage = errorInfoInterface.getMessage();
     }
 
-    public BizException(String errorMsg) {
-        super(errorMsg);
-        this.errorMsg = errorMsg;
-    }
-
-    public BizException(String errorCode, String errorMsg) {
-        super(errorCode);
-        this.errorCode = errorCode;
-        this.errorMsg = errorMsg;
-    }
-
-    public BizException(String errorCode, String errorMsg, Throwable cause) {
+    public BizException(String errorCode, String errorMessage, Throwable cause) {
         super(errorCode, cause);
         this.errorCode = errorCode;
-        this.errorMsg = errorMsg;
-    }
-
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
-    }
-
-    public void setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
+        this.errorMessage = errorMessage;
     }
 
     @Override
-    public Throwable fillInStackTrace() {
+    public synchronized Throwable fillInStackTrace() {
         return this;
     }
 }

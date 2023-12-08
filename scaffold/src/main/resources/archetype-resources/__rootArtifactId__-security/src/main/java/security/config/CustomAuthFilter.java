@@ -1,9 +1,9 @@
 package ${groupId}.security.config;
 
+import cn.hutool.crypto.SecureUtil;
 import ${groupId}.common.constant.RedisCacheKey;
-import ${groupId}.common.utils.JWTUtil;
-import ${groupId}.common.utils.StringUtils;
-import ${groupId}.common.utils.encrypt.AESUtil;
+import ${groupId}.common.utils.JwtUtils;
+import ${groupId}.common.utils.StrUtils;
 import ${groupId}.common.utils.json.JsonUtils;
 import ${groupId}.common.utils.redis.RedisService;
 import ${groupId}.service.auth.model.AuthUserDetails;
@@ -11,6 +11,7 @@ import ${groupId}.service.auth.model.UserDTO;
 import jodd.util.Base64;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,6 +30,9 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * 自定义认证过滤器
+ *
+ * @author Alex Meng
+ * @createDate 2023-11-21 01:04
  */
 @Slf4j
 @Component
@@ -54,13 +58,13 @@ public class CustomAuthFilter extends OncePerRequestFilter {
             // 解码token
             String token = new String(Base64.decode(requestToken), StandardCharsets.UTF_8);
             // 获取token中的验证信息
-            String authInfo = JWTUtil.getTokenSubject(token);
-            if (!JWTUtil.isTokenExpired(token) && StringUtils.isNotBlank(authInfo) && SecurityContextHolder.getContext().getAuthentication() == null) {
+            String authInfo = JwtUtils.getTokenSubject(token);
+            if (!JwtUtils.isTokenExpired(token) && StringUtils.isNotBlank(authInfo) && SecurityContextHolder.getContext().getAuthentication() == null) {
                 // 解析Token，获取用户信息
-                String decodeSubject = AESUtil.decode(jwtSecret, authInfo);
+                String decodeSubject = SecureUtil.aes(jwtSecret.getBytes()).decryptStr(authInfo);
                 UserDTO userInfo = JsonUtils.toObj(decodeSubject, UserDTO.class);
                 // 验证token是否有效
-                String cacheToken = redisService.getString(StringUtils.format(RedisCacheKey.USER_TOKEN, userInfo.getUsername()));
+                String cacheToken = redisService.getString(StrUtils.format(RedisCacheKey.User.USER_TOKEN, userInfo.getUsername()));
                 if (StringUtils.isNotBlank(cacheToken) && cacheToken.equals(token)) {
                     AuthUserDetails userDetails = (AuthUserDetails) userDetailsService.loadUserByUsername(userInfo.getUsername());
                     // 保存用户信息到当前会话

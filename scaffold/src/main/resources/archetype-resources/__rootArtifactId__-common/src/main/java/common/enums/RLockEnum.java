@@ -10,7 +10,7 @@ public enum RLockEnum {
     /**
      * 可重入锁（Reentrant Lock）
      */
-    ReentrantLock,
+    REENTRANT_LOCK,
     /**
      * 公平锁（Fair Lock）
      * <p>
@@ -20,39 +20,39 @@ public enum RLockEnum {
      * 所有请求线程会在一个队列中排队，当某个线程出现宕机时，Redisson会等待5秒后继续下一个线程，也就是说如果前面有5个线程都处于等待状态，
      * 那么后面的线程会等待至少25秒。
      */
-    FairLock,
+    FAIR_LOCK,
     /**
      * 联锁（MultiLock）
      * 基于Redis的Redisson分布式联锁[`RedissonMultiLock`]对象可以将多个`RLock`对象关联为一个联锁，
      * 每个`RLock`对象实例可以来自于不同的Redisson实例。
      */
-    MultiLock,
+    MULTI_LOCK,
     /**
      * 红锁（RedLock）
      * 基于Redis的Redisson红锁`RedissonRedLock`对象实现了[Redlock]介绍的加锁算法。
      * 该对象也可以用来将多个`RLock`对象关联为一个红锁，每个`RLock`对象实例可以来自于不同的Redisson实例。
      */
-    RedLock,
+    RED_LOCK,
     /**
      * 读锁
      * 分布式可重入读写锁允许同时有多个读锁和一个写锁处于加锁状态。
      */
-    ReadLock,
+    READ_LOCK,
     /**
      * 写锁
      * 分布式可重入读写锁允许同时有多个读锁和一个写锁处于加锁状态。
      */
-    WriteLock,
+    WRITE_LOCK,
     /**
      * 信号量
      */
-    Semaphore,
+    SEMAPHORE,
     /**
      * 可过期性信号量
      */
-    PermitExpirableSemaphore,
+    PERMIT_EXPIRABLE_SEMAPHORE,
     /**
      * 闭锁（CountDownLatch）
      */
-    CountDownLatch
+    COUNT_DOWN_LATCH
 }
