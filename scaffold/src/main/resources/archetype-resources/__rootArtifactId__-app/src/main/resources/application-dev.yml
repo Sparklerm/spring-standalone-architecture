@@ -1,0 +1,35 @@
+# ======== 线程池配置 ========
+thread:
+  pool:
+    executor:
+      config:
+        core-pool-size: 20
+        max-pool-size: 50
+        keep-alive-time: 5000
+        block-queue-size: 5000
+        policy: CallerRunsPolicy
+
+spring:
+  # ======== 数据库连接信息 ========
+  datasource:
+    druid:
+      username: root
+      password: 123456
+      url: jdbc:mysql://127.0.0.1:3306/boot_scaffold?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&useSSL=true
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  # ======== Redis配置 ========
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    timeout: 10000
+
+# ======== 日志配置 ========
+logging:
+  level:
+    root: info
+  config: classpath:logback-spring.xml
+
+# ======== JWT密钥配置 ========
+jwt:
+  secret: c7668c428c0117c6
