@@ -24,4 +24,7 @@ public class RoleUpdateRequest implements Serializable {
 
     @ApiModelProperty("启用状态：0->禁用；1->启用")
     private Integer status;
+
+    @ApiModelProperty("是否为用户注册时绑定的默认角色：0->不是；1->是")
+    private Integer isDefault;
 }
