@@ -7,7 +7,8 @@
 拉取本仓库代码，进入到项目根目录，执行如下命令：
 
 ```shell
-mvn clean install
+cd scaffold
+mvn -T 1C -DskipTests=true clean install
 ```
 
 ### 2. 使用
