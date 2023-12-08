@@ -10,7 +10,7 @@ import java.util.Objects;
  * 根据IP查询归属地工具类
  * 只有中国的数据绝大部分精确到了城市，其他国家部分数据只能定位到国家，后前的选项全部是0。
  *
- * @author Sparkler
+ * @author Alex Meng
  * @createDate 2023-2-23 14:26
  */
 @Slf4j

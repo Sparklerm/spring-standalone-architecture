@@ -10,7 +10,7 @@ import java.nio.charset.Charset;
 /**
  * MD5加密工具类
  *
- * @author Sparkler
+ * @author Alex Meng
  * @createDate 2023 /1/4
  */
 public class MD5Util {

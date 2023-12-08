@@ -13,7 +13,7 @@ import java.util.Locale;
 /**
  * Fake 数据工具类
  *
- * @author Sparkler
+ * @author Alex Meng
  * @createDate 2022 /12/5
  */
 public class FakerUtils {

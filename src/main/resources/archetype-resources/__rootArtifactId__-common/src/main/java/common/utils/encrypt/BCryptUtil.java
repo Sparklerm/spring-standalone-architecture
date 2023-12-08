@@ -5,7 +5,7 @@ import org.mindrot.jbcrypt.BCrypt;
 /**
  * Bcrypt 加密工具类 .
  *
- * @author Sparkler
+ * @author Alex Meng
  * @createDate 2023 /2/11-18:05
  */
 public class BCryptUtil {

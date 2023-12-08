@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * JWT工具类
  *
- * @author MENGJIAO
+ * @author Alex Meng
  * @createDate 2023-10-30 0030 下午 10:27
  */
 public class JWTUtil {
@@ -234,6 +234,26 @@ public class JWTUtil {
         }
         return flag;
     }
+
+    /**
+     * 判断token是否已经失效
+     */
+    public static boolean isTokenExpired(String token) {
+        Date expiredDate = getTokenExpiresAt(token);
+        return expiredDate.before(new Date());
+    }
+
+    /**
+     * 验证token是否还有效
+     *
+     * @param token   客户端传入的token
+     * @param subject 主题信息
+     */
+    public static boolean validateToken(String token, String subject) {
+        String tokenSubject = getTokenSubject(token);
+        return tokenSubject.equals(subject) && !isTokenExpired(token);
+    }
+
 
     @Data
     public static class JwtConfig {

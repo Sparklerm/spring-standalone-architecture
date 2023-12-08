@@ -16,7 +16,6 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.RequestParameterBuilder;
 import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
 import springfox.documentation.service.ParameterType;
 import springfox.documentation.service.RequestParameter;
 import springfox.documentation.spi.DocumentationType;
@@ -50,8 +49,8 @@ public class SwaggerConfig {
     public Docket docket() throws UnknownHostException {
         RequestParameterBuilder parameterBuilder = new RequestParameterBuilder();
         List<RequestParameter> parameters = new ArrayList<>();
-        parameterBuilder.name("authorization")
-                .description("token值")
+        parameterBuilder.name("Authorization")
+                .description("token")
                 .in(ParameterType.HEADER)
                 .required(false)
                 .build();
@@ -69,9 +68,8 @@ public class SwaggerConfig {
 
     public ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("YiYan Backend")
-                .description("YiYan Backend API 文档")
-                .contact(new Contact("YiYan", "...", "mengjiao.cn@outlook.com"))
+                .title("Spring Boot API文档")
+                .description("Spring Boot API文档")
                 .version("1.0")
                 .build();
     }

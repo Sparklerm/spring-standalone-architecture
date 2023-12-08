@@ -1,11 +1,14 @@
 package ${groupId}.common.enums;
 
+import lombok.Getter;
+
 /**
  * 排序枚举
  *
- * @author MENGJIAO
+ * @author Alex Meng
  * @createDate 2023-10-15 0015 下午 01:32
  */
+@Getter
 public enum QueryOrderEnum {
     ASC("ASC"),
     DESC("DESC");
@@ -15,7 +18,4 @@ public enum QueryOrderEnum {
         this.value = value;
     }
 
-    public String getValue() {
-        return value;
-    }
 }

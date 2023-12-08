@@ -15,7 +15,7 @@ import java.util.Date;
 /**
  * 时间类型转换工具
  *
- * @author MENGJIAO
+ * @author Alex Meng
  * @createDate 2023-04-23 17:58
  */
 @Component

@@ -5,7 +5,7 @@ import cn.hutool.http.HTMLFilter;
 /**
  * 转义和反转义工具类
  *
- * @author Sparkler
+ * @author Alex Meng
  */
 public class EscapeUtil {
     public static final String RE_HTML_MARK = "(<[^<]*?>)|(<[\\s]*?/[^<]*?>)|(<[^<]*?/[\\s]*?>)";

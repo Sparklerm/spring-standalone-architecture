@@ -8,7 +8,7 @@ import java.io.InputStream;
 /**
  * SHA 加密工具类
  *
- * @author Sparkler
+ * @author Alex Meng
  * @createDate 2023/1/4
  */
 public class SHAUtil {

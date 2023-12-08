@@ -4,7 +4,7 @@ package ${groupId}.common.constant;
 /**
  * 常用正则常量
  *
- * @author Sparkler
+ * @author Alex Meng
  */
 public class RegexpConstant {
 

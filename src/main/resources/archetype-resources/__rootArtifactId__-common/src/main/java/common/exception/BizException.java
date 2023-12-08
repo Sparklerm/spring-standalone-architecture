@@ -1,13 +1,15 @@
 package ${groupId}.common.exception;
 
-import ${groupId}.common.enums.ErrorCodeEnumFormat;
+import ${groupId}.common.enums.StatusCodeEnumFormat;
+import lombok.Getter;
 
 /**
  * 自定义异常类
  *
- * @author Sparkler
+ * @author Alex Meng
  * @createDate 2022/11/9
  */
+@Getter
 public class BizException extends RuntimeException {
     private static final long serialVersionUID = 1L;
 
@@ -24,19 +26,19 @@ public class BizException extends RuntimeException {
         super();
     }
 
-    public BizException(ErrorCodeEnumFormat errorInfoInterface) {
+    public BizException(StatusCodeEnumFormat errorInfoInterface) {
         super(errorInfoInterface.getCode());
         this.errorCode = errorInfoInterface.getCode();
         this.errorMsg = errorInfoInterface.getMessage();
     }
 
-    public BizException(ErrorCodeEnumFormat errorInfoInterface, String message) {
+    public BizException(StatusCodeEnumFormat errorInfoInterface, String message) {
         super(errorInfoInterface.getCode());
         this.errorCode = errorInfoInterface.getCode();
         this.errorMsg = errorInfoInterface.getMessage() + " : " + message;
     }
 
-    public BizException(ErrorCodeEnumFormat errorInfoInterface, Throwable cause) {
+    public BizException(StatusCodeEnumFormat errorInfoInterface, Throwable cause) {
         super(errorInfoInterface.getCode(), cause);
         this.errorCode = errorInfoInterface.getCode();
         this.errorMsg = errorInfoInterface.getMessage();
@@ -59,16 +61,8 @@ public class BizException extends RuntimeException {
         this.errorMsg = errorMsg;
     }
 
-    public String getErrorCode() {
-        return errorCode;
-    }
-
     public void setErrorCode(String errorCode) {
         this.errorCode = errorCode;
-    }
-
-    public String getErrorMsg() {
-        return errorMsg;
     }
 
     public void setErrorMsg(String errorMsg) {

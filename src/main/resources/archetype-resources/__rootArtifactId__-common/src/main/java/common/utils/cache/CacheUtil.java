@@ -3,8 +3,8 @@ package ${groupId}.common.utils.cache;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
-import ${groupId}.common.enums.ErrorCodeEnum;
-import ${groupId}.common.exception.Asserts;
+import ${groupId}.common.enums.BizCodeEnum;
+import ${groupId}.common.exception.BizAssert;
 import ${groupId}.common.utils.json.JsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 默认配置：初始化缓存大小为100，最大缓存条数：2000，过期时间：7200秒
  * </P>
  *
- * @author MENGJIAO
+ * @author Alex Meng
  * @createDate 2023-05-30 12:13
  */
 @Slf4j
@@ -44,9 +44,10 @@ public class CacheUtil {
         // 判断缓存是否已存在
         Cache<String, Object> localCache = LOCAL_CACHE_MAP.get(config.getCacheName());
         if (localCache != null) {
-            Asserts.fail(ErrorCodeEnum.LOCAL_CACHE_EXIST);
+            BizAssert.fail(BizCodeEnum.LOCAL_CACHE_EXIST);
         }
         Caffeine<Object, Object> builder = Caffeine.newBuilder();
+        builder.recordStats();
         // 设置缓存初始大小，应该合理设置，后续扩容会影响性能
         builder.initialCapacity(config.getInitialCapacity());
         // 设置缓存最大条数，超过此数量时，会按照LRU最近最少使用算法来移除缓存项，-1不设置maximumSize
@@ -90,7 +91,7 @@ public class CacheUtil {
             createLocalCache(new CaffeineCacheConfig(cacheName));
             localCache = LOCAL_CACHE_MAP.get(cacheName);
         } else if (localCache == null) {
-            Asserts.fail(ErrorCodeEnum.LOCAL_CACHE_NOT_EXIST);
+            BizAssert.fail(BizCodeEnum.LOCAL_CACHE_NOT_EXIST);
         }
         return localCache;
     }

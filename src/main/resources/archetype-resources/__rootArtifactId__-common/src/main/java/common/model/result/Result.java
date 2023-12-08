@@ -1,14 +1,15 @@
 package ${groupId}.common.model.result;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import ${groupId}.common.constant.ErrorCodeConstant;
+import ${groupId}.common.constant.BizConstant;
+import ${groupId}.common.enums.BizCodeEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
 /**
- * 返回实体
+ * 接口统一返回
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -17,67 +18,94 @@ public class Result<T> extends BaseResult implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 返回数据
+     */
     private T data;
 
+    /**
+     * Instantiates a new Result.
+     */
     public Result() {
     }
 
-    public Result(Integer code, String message, T data) {
+    public Result(String code, String message, T data) {
         super(code, message);
         this.data = data;
     }
 
-    public Result(Integer code, String errorCode, String message, T data) {
-        super(code, errorCode, message);
-        this.data = data;
+    public static <T> Result<T> success(String code, String message, T data) {
+        return new Result<>(code, message, data);
     }
 
-//    public boolean success() {
-//        return CODE_SUCCESS.equals(getCode());
-//    }
-
-    public boolean systemFail() {
-        return CODE_SYSTEM_ERROR.equals(getCode());
+    public static <T> Result<T> success(BizCodeEnum status, T data) {
+        return success(status.getCode(), status.getMessage(), data);
     }
 
-    public static <T> Result<T> ok() {
-        return new Result<>(CODE_SUCCESS, "", null);
-    }
-
-    public static <T> Result<T> ok(String message) {
-        return new Result<>(CODE_SUCCESS, message, null);
-    }
-
-    public static <T> Result<T> success() {
-        return new Result<>(Integer.valueOf(ErrorCodeConstant.SUCCESS.getCode()), ErrorCodeConstant.SUCCESS.getMsg(), null);
+    public static <T> Result<T> success(BizCodeEnum status) {
+        return success(status.getCode(), status.getMessage(), null);
     }
 
     public static <T> Result<T> success(T data) {
-        return new Result<>(CODE_SUCCESS, MESSAGE_SUCCESS, data);
+        return success(BizCodeEnum.SUCCESS, data);
     }
 
-    public static <T> Result<T> success(T data, String message) {
-        return new Result<>(CODE_SUCCESS, message, data);
+    public static <T> Result<T> success() {
+        return success(BizCodeEnum.SUCCESS, null);
     }
 
-    public static <T> Result<T> error(String message) {
-        return Result.error(CODE_SYSTEM_ERROR, null, message, null);
+    public static Result<String> createSuccess() {
+        return new Result<>(BizCodeEnum.SUCCESS.getCode(), BizCodeEnum.SUCCESS.getMessage(), BizConstant.DEFAULT_CREATE_OPTION_SUCCESS_MESSAGE);
     }
 
-    public static <T> Result<T> authError() {
-        return Result.error(CODE_AUTH_ERROR, null, SYSTEM_AUTH_ERROR, null);
+    public static <T> Result<String> createSuccess(T data) {
+        return new Result<>(BizCodeEnum.SUCCESS.getCode(),
+                BizCodeEnum.SUCCESS.getMessage(),
+                BizConstant.DEFAULT_CREATE_OPTION_SUCCESS_MESSAGE + " : " + data);
     }
 
-    public static <T> Result<T> error(String errorCode, String message) {
-        return Result.error(CODE_SYSTEM_ERROR, errorCode, message, null);
+    public static Result<String> updateSuccess() {
+        return new Result<>(BizCodeEnum.SUCCESS.getCode(), BizCodeEnum.SUCCESS.getMessage(), BizConstant.DEFAULT_UPDATE_OPTION_SUCCESS_MESSAGE);
     }
 
-    public static <T> Result<T> error(ErrorCodeConstant errorCode, String message) {
-        return Result.error(CODE_SYSTEM_ERROR, errorCode.getCode(), message, null);
+    public static <T> Result<String> updateSuccess(T data) {
+        return new Result<>(BizCodeEnum.SUCCESS.getCode(),
+                BizCodeEnum.SUCCESS.getMessage(),
+                BizConstant.DEFAULT_UPDATE_OPTION_SUCCESS_MESSAGE + " : " + data);
     }
 
-    public static <T> Result<T> error(Integer code, String errorCode, String message, T data) {
-        return new Result<>(code, errorCode, message, data);
+    public static Result<String> deleteSuccess() {
+        return new Result<>(BizCodeEnum.SUCCESS.getCode(), BizCodeEnum.SUCCESS.getMessage(), BizConstant.DEFAULT_DELETE_OPTION_SUCCESS_MESSAGE);
+    }
+
+    public static <T> Result<String> deleteSuccess(T data) {
+        return new Result<>(BizCodeEnum.SUCCESS.getCode(),
+                BizCodeEnum.SUCCESS.getMessage(),
+                BizConstant.DEFAULT_DELETE_OPTION_SUCCESS_MESSAGE + " : " + data);
+    }
+
+    public static <T> Result<T> error(String code, String message, T data) {
+        return new Result<>(code, message, data);
+    }
+
+    public static <T> Result<T> error(String code, String message) {
+        return error(code, message, null);
+    }
+
+    public static <T> Result<T> error(BizCodeEnum status, T data) {
+        return error(status.getCode(), status.getMessage(), data);
+    }
+
+    public static <T> Result<T> error(BizCodeEnum status) {
+        return error(status.getCode(), status.getMessage(), null);
+    }
+
+    public static <T> Result<T> error(T data) {
+        return error(BizCodeEnum.ERROR, data);
+    }
+
+    public static <T> Result<T> error() {
+        return error(BizCodeEnum.ERROR, null);
     }
 
 }

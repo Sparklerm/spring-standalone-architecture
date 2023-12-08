@@ -3,7 +3,7 @@ package ${groupId}.common.constant;
 /**
  * url常量
  *
- * @author Sparkler
+ * @author Alex Meng
  */
 public class UrlConstant {
 

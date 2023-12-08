@@ -1,7 +1,7 @@
 package ${groupId}.common.utils.encrypt;
 
 /**
- * @author Sparkler
+ * @author Alex Meng
  * @createDate 2023/1/4
  */
 public class EncryptConstant {

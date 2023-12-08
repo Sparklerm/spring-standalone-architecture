@@ -3,6 +3,7 @@ package ${groupId}.common.utils;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * 排序工具类
@@ -53,6 +54,13 @@ public class SortUtils {
         }
     }
 
+    public static <T extends Comparable<T>> void bubbleSort(List<T> list) {
+        if (list == null || list.size() < 2) {
+            return;
+        }
+        bubbleSort((T[]) list.toArray());
+    }
+
     /**
      * 选择排序
      *
@@ -76,6 +84,13 @@ public class SortUtils {
         }
     }
 
+    public static <T extends Comparable<T>> void selectionSort(List<T> list) {
+        if (list == null || list.size() < 2) {
+            return;
+        }
+        selectionSort((T[]) list.toArray());
+    }
+
     /**
      * 插入排序
      *
@@ -97,6 +112,13 @@ public class SortUtils {
             }
             arr[j + 1] = tmp;
         }
+    }
+
+    public static <T extends Comparable<T>> void insertionSort(List<T> list) {
+        if (list == null || list.size() < 2) {
+            return;
+        }
+        insertionSort((T[]) list.toArray());
     }
 
     /**
@@ -124,6 +146,13 @@ public class SortUtils {
         }
     }
 
+    public static <T extends Comparable<T>> void shellSort(List<T> list) {
+        if (list == null || list.size() < 2) {
+            return;
+        }
+        shellSort((T[]) list.toArray());
+    }
+
     /**
      * 快速排序
      *
@@ -141,6 +170,13 @@ public class SortUtils {
             quickSort(arr, low, pivot - 1);
             quickSort(arr, pivot + 1, high);
         }
+    }
+
+    public static <T extends Comparable<T>> void quickSort(List<T> list) {
+        if (list == null || list.size() < 2) {
+            return;
+        }
+        quickSort((T[]) list.toArray(), 0, list.size() - 1);
     }
 
     private static <T extends Comparable<T>> int partition(T[] arr, int low, int high) {
@@ -174,6 +210,13 @@ public class SortUtils {
         T[] left = Arrays.copyOfRange(arr, 0, mid);
         T[] right = Arrays.copyOfRange(arr, mid, arr.length);
         return merge(mergeSort(left), mergeSort(right));
+    }
+
+    public static <T extends Comparable<T>> void mergeSort(List<T> list) {
+        if (list == null || list.size() < 2) {
+            return;
+        }
+        mergeSort((T[]) list.toArray());
     }
 
     private static <T extends Comparable<T>> T[] merge(T[] left, T[] right) {

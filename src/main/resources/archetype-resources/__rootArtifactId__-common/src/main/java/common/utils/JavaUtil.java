@@ -12,7 +12,7 @@ import static java.util.stream.Collectors.toList;
  * <p>
  * if/else 等简单逻辑疯狂缩短代码
  *
- * @author Sparkler
+ * @author Alex Meng
  */
 public final class JavaUtil {
 

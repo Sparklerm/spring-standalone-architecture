@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * 分页查询参数
  *
- * @author MENGJIAO
+ * @author Alex Meng
  */
 @Data
 public class BasePageQuery<T> implements Serializable {

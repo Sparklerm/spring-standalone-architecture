@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 /**
  * 数据库数据类型-Java数据类型枚举
  *
- * @author Sparkler
+ * @author Alex Meng
  * @createDate 2022 /12/5
  */
 public enum FieldTypeEnum {

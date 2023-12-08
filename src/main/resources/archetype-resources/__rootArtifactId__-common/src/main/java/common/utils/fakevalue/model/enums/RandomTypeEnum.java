@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 /**
  * The enum Random type enum.
  *
- * @author Sparkler
+ * @author Alex Meng
  * @createDate 2022 /12/5
  */
 public enum RandomTypeEnum {

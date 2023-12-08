@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 /**
  * 系统信息获取
  *
- * @author Sparkler
+ * @author Alex Meng
  * @createDate 2022 /12/10
  */
 @Slf4j

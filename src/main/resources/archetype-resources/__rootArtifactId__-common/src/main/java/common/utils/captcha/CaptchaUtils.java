@@ -13,7 +13,7 @@ import lombok.Getter;
  * 图片验证码工具类
  * PS: 返回的验证码为base64格式 及 校验值
  *
- * @author MENGJIAO
+ * @author Alex Meng
  * @createDate 2023-10-07 下午 11:28
  */
 public class CaptchaUtils {

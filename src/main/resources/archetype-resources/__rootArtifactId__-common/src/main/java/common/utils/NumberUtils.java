@@ -3,7 +3,7 @@ package ${groupId}.common.utils;
 /**
  * 数学工具类
  *
- * @author MENGJIAO
+ * @author Alex Meng
  * @createDate 2023-05-05 9:25
  */
 public class NumberUtils {

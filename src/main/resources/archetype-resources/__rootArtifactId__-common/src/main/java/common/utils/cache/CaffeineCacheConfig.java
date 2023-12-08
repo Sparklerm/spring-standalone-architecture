@@ -2,6 +2,7 @@ package ${groupId}.common.utils.cache;
 
 import ${groupId}.common.constant.Constants;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,10 +10,11 @@ import javax.validation.constraints.NotBlank;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author MENGJIAO
+ * @author Alex Meng
  * @createDate 2023-11-19 0019 上午 03:38
  */
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class CaffeineCacheConfig {

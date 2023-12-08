@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="${groupId}.dao.auth.dao.IRoleDao">
+
+    <select id="selectAll" resultType="${groupId}.dao.auth.po.RolePO">
+        select *
+        from `role`
+    </select>
+
+    <select id="selectResourceListByRoleId" resultType="${groupId}.dao.auth.po.ResourcePO">
+        SELECT r.*
+        FROM resource r
+                 LEFT JOIN role_resource_relation rrr ON r.id = rrr.resource_id
+        WHERE rrr.role_id = #{roleId}
+    </select>
+
+    <select id="selectByUserId" resultType="${groupId}.dao.auth.po.RolePO">
+        SELECT r.*
+        FROM ROLE r
+                 LEFT JOIN user_role_relation urr ON
+            r.id = urr.role_id
+        WHERE urr.user_id = #{userId}
+    </select>
+</mapper>

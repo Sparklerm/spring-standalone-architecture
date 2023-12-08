@@ -1,7 +1,7 @@
 package ${groupId}.common.constant;
 
 /**
- * @author MengJiao
+ * @author Alex Meng
  * @createDate 2023/2/13-9:41
  */
 public class NumberConstant {
@@ -16,9 +16,14 @@ public class NumberConstant {
     public static final int ONE = 1;
 
     /**
+     * 一分钟，单位秒。60s
+     */
+    public static final int ONE_MINUTE = 60;
+
+    /**
      * 半小时，单位秒。1800s
      */
-    public static final int HALF_HOUR = 60 * 30;
+    public static final int HALF_HOUR = ONE_MINUTE * 30;
 
     /**
      * 一小时，单位秒。3600s

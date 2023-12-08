@@ -8,7 +8,7 @@ import oshi.hardware.VirtualMemory;
 /**
  * 内存信息
  *
- * @author Sparkler
+ * @author Alex Meng
  * @createDate 2022/12/10
  */
 @Data

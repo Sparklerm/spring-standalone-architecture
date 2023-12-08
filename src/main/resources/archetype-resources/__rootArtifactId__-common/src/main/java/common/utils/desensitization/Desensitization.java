@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 /**
  * 数据脱敏注解
  *
- * @author MENGJIAO
+ * @author Alex Meng
  */
 @JacksonAnnotationsInside
 @JsonSerialize(using = SensitiveInfoSerializer.class)

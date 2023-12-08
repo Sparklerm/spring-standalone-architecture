@@ -11,7 +11,7 @@ import java.io.InputStream;
 /**
  * DES 加密工具类
  *
- * @author Sparkler
+ * @author Alex Meng
  * @createDate 2023 /1/4
  */
 public class DESUtil {

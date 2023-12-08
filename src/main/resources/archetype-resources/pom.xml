@@ -16,11 +16,12 @@
     </parent>
 
     <modules>
-        <module>${rootArtifactId}-app</module>
         <module>${rootArtifactId}-common</module>
-        <module>${rootArtifactId}-domain</module>
+        <module>${rootArtifactId}-dao</module>
         <module>${rootArtifactId}-service</module>
+        <module>${rootArtifactId}-security</module>
         <module>${rootArtifactId}-web</module>
+        <module>${rootArtifactId}-app</module>
     </modules>
 
     <properties>
@@ -30,7 +31,7 @@
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- 项目模块版本 -->
-        <spring-frame.version>1.0-SNAPSHOT</spring-frame.version>
+        <spring-standalone-architecture.version>1.0-SNAPSHOT</spring-standalone-architecture.version>
         <!-- Spring Boot 版本 -->
         <spring-boot.version>2.7.6</spring-boot.version>
         <!-- mybatis -->
@@ -76,22 +77,32 @@
             <dependency>
                 <groupId>${groupId}</groupId>
                 <artifactId>${rootArtifactId}-common</artifactId>
-                <version>${version}</version>
+                <version>${spring-standalone-architecture.version}</version>
             </dependency>
             <dependency>
                 <groupId>${groupId}</groupId>
-                <artifactId>${rootArtifactId}-domain</artifactId>
-                <version>${version}</version>
+                <artifactId>${rootArtifactId}-dao</artifactId>
+                <version>${spring-standalone-architecture.version}</version>
             </dependency>
             <dependency>
                 <groupId>${groupId}</groupId>
                 <artifactId>${rootArtifactId}-service</artifactId>
-                <version>${version}</version>
+                <version>${spring-standalone-architecture.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${groupId}</groupId>
+                <artifactId>${rootArtifactId}-security</artifactId>
+                <version>1.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>${groupId}</groupId>
                 <artifactId>${rootArtifactId}-web</artifactId>
-                <version>${version}</version>
+                <version>${spring-standalone-architecture.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${groupId}</groupId>
+                <artifactId>${rootArtifactId}-app</artifactId>
+                <version>${spring-standalone-architecture.version}</version>
             </dependency>
             <!-- 开发包 -->
             <dependency>
@@ -168,11 +179,6 @@
                 <groupId>org.mindrot</groupId>
                 <artifactId>jbcrypt</artifactId>
                 <version>${jbcrypt.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.squareup.okhttp3</groupId>
-                <artifactId>okhttp</artifactId>
-                <version>${okhttp.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>

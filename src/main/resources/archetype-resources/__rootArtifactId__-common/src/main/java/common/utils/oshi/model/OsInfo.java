@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import oshi.software.os.OperatingSystem;
 
 /**
- * @author Sparkler
+ * @author Alex Meng
  * @createDate 2022/12/10
  */
 @Data

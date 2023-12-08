@@ -15,7 +15,7 @@ import java.util.Set;
 /**
  * 集合工具类
  *
- * @author Sparkler
+ * @author Alex Meng
  */
 @Slf4j
 public class CollectionUtils extends CollectionUtil {
@@ -165,13 +165,12 @@ public class CollectionUtils extends CollectionUtil {
      */
     public static <S, T> List<T> copyList(Collection<S> sCollection, Class<T> tClass) {
         List<T> list = new ArrayList<>();
-        if (sCollection == null || sCollection.size() == 0) {
+        if (sCollection == null || sCollection.isEmpty()) {
             return list;
         }
         try {
             for (S s : sCollection) {
-                T t = tClass.newInstance();
-                BeanUtils.copyProperties(s, t);
+                T t = BeanCopierUtils.copyProperties(s, tClass);
                 list.add(t);
             }
         } catch (Exception e) {

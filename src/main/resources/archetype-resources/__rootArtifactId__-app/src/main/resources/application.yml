@@ -105,3 +105,30 @@ mybatis-plus:
       id-type: assign_id
       # 表名是否使用驼峰转下划线命名,只对表名生效。 默认true
       table-underline: true
+
+############## JWT 配置 ##############
+jwt:
+  secret: 123456
+  expirationTime: 604800
+  issuer: boot
+  tokenHeader: Authorization
+
+############## Security 配置 ##############
+secure:
+  ignored:
+    urls: #安全路径白名单
+      - /**/swagger-ui/**
+      - /**/swagger-resources/**
+      - /**/v2/**
+      - /**/v3/**
+      - /**/webjars/**
+      - /**/doc.html
+      - /**/error
+      - /**/favicon.ico
+      - /**/*.html
+      - /**/*.css
+      - /**/*.js
+      - /**/*.gif
+      - /**/*.ico
+      - /**/login/**
+      - /**/register/**

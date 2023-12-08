@@ -1,6 +1,7 @@
 package ${groupId}.common.model.result;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import ${groupId}.common.enums.BizCodeEnum;
 import ${groupId}.common.utils.ObjectUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,9 +11,9 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 分页数据返回实体
+ * 分页数据统一返回
  *
- * @author MENGJIAO
+ * @author Alex Meng
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -39,8 +40,8 @@ public class PageResult<T> extends BaseResult implements Serializable {
 
     public static <T> PageResult<T> success(IPage<T> result) {
         PageResult<T> pageResult = new PageResult<>();
-        pageResult.setCode(CODE_SUCCESS);
-        pageResult.setMessage(QUERY_SUCCESS);
+        pageResult.setCode(BizCodeEnum.SUCCESS.getCode());
+        pageResult.setMessage(BizCodeEnum.SUCCESS.getMessage());
         PageResultRecord<T> data = new PageResultRecord<>();
         data.setCurrent(result.getCurrent());
         data.setPageSize(result.getSize());
@@ -52,8 +53,8 @@ public class PageResult<T> extends BaseResult implements Serializable {
 
     public static <T> PageResult<T> success(Long total, List<T> records) {
         PageResult<T> pageResult = new PageResult<>();
-        pageResult.setCode(CODE_SUCCESS);
-        pageResult.setMessage(QUERY_SUCCESS);
+        pageResult.setCode(BizCodeEnum.SUCCESS.getCode());
+        pageResult.setMessage(BizCodeEnum.SUCCESS.getMessage());
         PageResultRecord<T> data = new PageResultRecord<>();
         data.setTotal(total);
         data.setRecords(records);

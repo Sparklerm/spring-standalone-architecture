@@ -4,7 +4,7 @@ import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.util.StringUtils;
 import com.alibaba.excel.write.metadata.WriteSheet;
-import ${groupId}.common.exception.Asserts;
+import ${groupId}.common.exception.BizAssert;
 import ${groupId}.common.exception.BizException;
 import ${groupId}.common.utils.CollectionUtils;
 import ${groupId}.common.utils.excel.common.ExcelFillCellMergeStrategy;
@@ -22,7 +22,7 @@ import java.util.Objects;
 /**
  * Excel 写入工具类
  *
- * @author Sparkler
+ * @author Alex Meng
  * @createDate 2022 /12/9
  */
 public class ExcelWrite {
@@ -94,7 +94,7 @@ public class ExcelWrite {
             response.setContentType("application/json");
             response.setCharacterEncoding("utf-8");
             e.printStackTrace();
-            Asserts.fail(e.getMessage());
+            BizAssert.fail(e.getMessage());
         } finally {
             assert writer != null;
             writer.finish();

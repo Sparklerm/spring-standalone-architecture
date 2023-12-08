@@ -8,9 +8,9 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 
 /**
- * The type Cmd utils.
+ * 指令执行工具类
  *
- * @author Sparkler
+ * @author Alex Meng
  */
 @Slf4j
 public class CmdUtils {

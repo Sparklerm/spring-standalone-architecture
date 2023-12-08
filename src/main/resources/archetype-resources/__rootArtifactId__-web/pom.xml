@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>${artifactId}</artifactId>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
@@ -35,7 +36,11 @@
         </dependency>
         <dependency>
             <groupId>${groupId}</groupId>
-            <artifactId>${rootArtifactId}-domain</artifactId>
+            <artifactId>${rootArtifactId}-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${groupId}</groupId>
+            <artifactId>${rootArtifactId}-security</artifactId>
         </dependency>
     </dependencies>
 

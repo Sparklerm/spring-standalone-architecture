@@ -10,7 +10,6 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -39,7 +38,7 @@ import java.util.TimeZone;
 /**
  * Json 工具类
  *
- * @author MENGJIAO
+ * @author Alex Meng
  * @createDate 2023-01-02
  */
 @Slf4j
@@ -78,8 +77,8 @@ public class JsonUtils extends JSONUtil {
         javaTimeModule.addSerializer(LocalTime.class, new LocalTimeSerializer(localTimeFormatter));
         javaTimeModule.addDeserializer(LocalTime.class, new LocalTimeDeserializer(localTimeFormatter));
 
-        //序列化时将类的数据类型存入json，以便反序列化的时候转换成正确的类型
-        objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
+        // 序列化时将类的数据类型存入json，以便反序列化的时候转换成正确的类型
+        // objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL);
 
         objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
         //null的属性不进行序列化

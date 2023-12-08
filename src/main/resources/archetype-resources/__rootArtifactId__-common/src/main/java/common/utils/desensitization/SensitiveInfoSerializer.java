@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * 脱敏序列化器
  *
- * @author MENGJIAO
+ * @author Alex Meng
  */
 public class SensitiveInfoSerializer extends JsonSerializer implements ContextualSerializer {
 

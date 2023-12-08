@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 通用常量
  *
- * @author Sparkler
+ * @author Alex Meng
  * @createDate 2023/1/17
  */
 public class Constants {

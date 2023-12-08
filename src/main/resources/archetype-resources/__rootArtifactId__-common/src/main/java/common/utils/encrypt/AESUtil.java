@@ -11,7 +11,7 @@ import java.io.InputStream;
 /**
  * AES 加密算法工具类
  *
- * @author Sparkler
+ * @author Alex Meng
  * @createDate 2023 /1/4
  */
 public class AESUtil {

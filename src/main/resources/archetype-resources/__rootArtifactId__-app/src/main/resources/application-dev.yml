@@ -1,4 +1,4 @@
-# 线程池配置
+# ======== 线程池配置 ========
 thread:
   pool:
     executor:
@@ -9,23 +9,27 @@ thread:
         block-queue-size: 5000
         policy: CallerRunsPolicy
 
-############## 数据库连接信息 ###############
-# 这里用h2数据库仅作为启动时的数据库连接测试，启动测试无其他问题后，再配置为mysql数据库
 spring:
+  # ======== 数据库连接信息 ========
   datasource:
     druid:
-      url: jdbc:h2:mem:testdb
-      driver-class-name: org.h2.Driver
-      username: sa
-      password: password
-#      username: root
-#      password: 123456
-#      url: jdbc:mysql://127.0.0.1:3306/boot_dev?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&useSSL=true
-#      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: root
+      password: 123456
+      url: jdbc:mysql://127.0.0.1:3306/boot_scaffold?useUnicode=true&characterEncoding=utf8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&serverTimezone=UTC&useSSL=true
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  # ======== Redis配置 ========
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    timeout: 10000
 
-
-############## 日志配置 ###############
+# ======== 日志配置 ========
 logging:
   level:
     root: info
   config: classpath:logback-spring.xml
+
+# ======== JWT密钥配置 ========
+jwt:
+  secret: c7668c428c0117c6

@@ -3,7 +3,7 @@ package ${groupId}.common.constant;
 /**
  * 业务常量
  *
- * @author Sparkler
+ * @author Alex Meng
  * @createDate 2023/2/11-21:50
  */
 public class BizConstant {
@@ -26,4 +26,20 @@ public class BizConstant {
      * 默认加密密钥
      */
     public static final String DEFAULT_SECRET = "is_app_default_secret";
+
+    /**
+     * 默认创建数据操作成功提示信息
+     */
+    public static final String DEFAULT_CREATE_OPTION_SUCCESS_MESSAGE = "数据创建成功";
+
+    /**
+     * 默认更新数据操作成功提示信息
+     */
+    public static final String DEFAULT_UPDATE_OPTION_SUCCESS_MESSAGE = "数据更新成功";
+
+    /**
+     * 默认删除数据操作成功提示信息
+     */
+    public static final String DEFAULT_DELETE_OPTION_SUCCESS_MESSAGE = "数据删除成功";
+
 }

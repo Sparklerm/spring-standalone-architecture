@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * 磁盘信息
  *
- * @author Sparkler
+ * @author Alex Meng
  * @createDate 2022/12/10
  */
 @Data

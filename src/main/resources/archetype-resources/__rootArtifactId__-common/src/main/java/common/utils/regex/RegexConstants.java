@@ -3,7 +3,7 @@ package ${groupId}.common.utils.regex;
 /**
  * 正则表达式常量
  *
- * @author MENGJIAO
+ * @author Alex Meng
  * @createDate 2023-04-25 22:03
  */
 public class RegexConstants {

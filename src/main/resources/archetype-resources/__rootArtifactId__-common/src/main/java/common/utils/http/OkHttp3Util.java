@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * OKHttp3工具类
  *
- * @author MENGJIAO
+ * @author Alex Meng
  * @createDate 2023-04-23 16:48
  */
 @Component

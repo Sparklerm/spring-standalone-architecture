@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 /**
  * 实体基类
  *
- * @author MENGJIAO
+ * @author Alex Meng
  */
 @Data
 public class BaseEntity {

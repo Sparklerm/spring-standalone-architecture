@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import oshi.hardware.CentralProcessor;
 
 /**
- * @author Sparkler
+ * @author Alex Meng
  * @createDate 2022/12/10
  */
 @Data

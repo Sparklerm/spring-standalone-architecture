@@ -7,7 +7,7 @@ import cn.hutool.core.util.StrUtil;
 /**
  * 混合字符串验证码生成器
  *
- * @author MENGJIAO
+ * @author Alex Meng
  * @createDate 2023-10-08 上午 12:37
  */
 public class MixStrGenerator extends AbstractGenerator {

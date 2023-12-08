@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  * <p>
  * 内置方法为单次匹配，如果需要多次匹配，可使用{@link #isMatch(String, String)}方法
  *
- * @author MENGJIAO
+ * @author Alex Meng
  * @createDate 2023-04-25 22:00
  */
 public class RegexUtil {

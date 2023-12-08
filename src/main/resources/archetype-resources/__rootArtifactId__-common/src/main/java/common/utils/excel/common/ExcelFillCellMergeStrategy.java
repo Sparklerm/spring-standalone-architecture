@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * 动态合并相同行
  *
- * @author Sparkler
+ * @author Alex Meng
  * @createDate 2022/11/10
  */
 public class ExcelFillCellMergeStrategy implements CellWriteHandler {
