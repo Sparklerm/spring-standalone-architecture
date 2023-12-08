@@ -1,9 +1,11 @@
-package com.yiyan.boot.security.config;
+package com.yiyan.boot.config.security;
 
 import com.yiyan.boot.security.component.DynamicAccessDecisionManager;
 import com.yiyan.boot.security.component.DynamicSecurityFilter;
 import com.yiyan.boot.security.component.DynamicSecurityMetadataSource;
 import com.yiyan.boot.security.component.DynamicSecurityService;
+import com.yiyan.boot.security.config.UserAccessDeniedHandler;
+import com.yiyan.boot.security.config.UserAuthenticationEntryPoint;
 import com.yiyan.boot.service.auth.model.ResourceDTO;
 import com.yiyan.boot.service.auth.service.IResourceService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;

@@ -38,7 +38,7 @@ public class RoleController {
     private IRoleService roleService;
 
     @ApiOperation("添加角色")
-    @PostMapping(value = "/create")
+    @PostMapping("/create")
     @ResponseBody
     public Result<String> create(@Valid @RequestBody RoleCreateRequest request) {
         Integer createResult = roleService.create(request.getName(), request.getDescription());
@@ -46,7 +46,7 @@ public class RoleController {
     }
 
     @ApiOperation("修改角色")
-    @PostMapping(value = "/update/{id}")
+    @PostMapping("/update/{id}")
     @ResponseBody
     public Result<String> update(@PathVariable("id") Long id, @Valid @RequestBody RoleUpdateRequest request) {
         RoleUpdateDTO roleUpdateDTO = BeanCopierUtils.copyProperties(request, RoleUpdateDTO.class);
@@ -56,7 +56,7 @@ public class RoleController {
     }
 
     @ApiOperation("批量删除角色")
-    @PostMapping(value = "/delete")
+    @PostMapping("/delete")
     @ResponseBody
     public Result<String> delete(@RequestParam List<Long> ids) {
         Integer delete = roleService.delete(ids);
@@ -79,7 +79,7 @@ public class RoleController {
     }
 
     @ApiOperation("修改角色状态")
-    @PostMapping(value = "/updateStatus/{id}")
+    @PostMapping("/updateStatus/{id}")
     @ResponseBody
     public Result<String> updateStatus(@PathVariable Long id, @RequestParam(value = "status") Integer status) {
         Integer update = roleService.update(RoleDTO.builder().id(id).status(status).build());
@@ -95,7 +95,7 @@ public class RoleController {
 
 
     @ApiOperation("给角色分配资源")
-    @PostMapping(value = "/allowResource")
+    @PostMapping("/allowResource")
     @ResponseBody
     public Result<Integer> allocResource(@RequestBody RoleResourceRequest request) {
         Integer bindResource = roleService.updateHasResource(request.getRoleId(), request.getResourceIds());

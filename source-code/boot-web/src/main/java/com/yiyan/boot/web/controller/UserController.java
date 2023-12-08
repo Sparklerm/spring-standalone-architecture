@@ -42,7 +42,7 @@ public class UserController {
     private IUserService userService;
 
     @ApiOperation(value = "用户注册")
-    @PostMapping(value = "/common/register")
+    @PostMapping("/common/register")
     @ResponseBody
     public Result<UserVO> register(@Valid @RequestBody UserRegisterRequest request) {
         UserDTO userDTO = BeanCopierUtils.copyProperties(request, UserDTO.class);
@@ -66,7 +66,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "登出功能")
-    @PostMapping(value = "/common/logout")
+    @PostMapping("/common/logout")
     public Result<String> logout() {
         AuthUserDetails context = AuthContextHolder.getContext();
         userService.logout(context.getUser().getUsername());
@@ -74,7 +74,7 @@ public class UserController {
     }
 
     @ApiOperation("用户修改密码")
-    @PostMapping(value = "/common/updatePassword")
+    @PostMapping("/common/updatePassword")
     public Result<String> updatePassword(@Valid @RequestBody UserUpdatePasswordRequest request) {
         Integer update = userService.updatePassword(request.getId(), request.getOldPassword(), request.getNewPassword());
         return update > 0 ? Result.updateSuccess(update) : Result.error();
@@ -95,7 +95,7 @@ public class UserController {
     }
 
     @ApiOperation("修改指定用户信息")
-    @PostMapping(value = "/update/{id}")
+    @PostMapping("/update/{id}")
     public Result<String> update(@PathVariable("id") Long id, @RequestBody UserUpdateRequest request) {
         UserDTO userDTO = BeanCopierUtils.copyProperties(request, UserDTO.class);
         userDTO.setId(id);
@@ -105,14 +105,14 @@ public class UserController {
 
 
     @ApiOperation("删除指定用户")
-    @PostMapping(value = "/delete/{id}")
+    @PostMapping("/delete/{id}")
     public Result<String> delete(@PathVariable Long id) {
         Integer delete = userService.delete(id);
         return delete > 0 ? Result.deleteSuccess(delete) : Result.error();
     }
 
     @ApiOperation("修改帐号状态")
-    @PostMapping(value = "/updateStatus/{id}")
+    @PostMapping("/updateStatus/{id}")
     public Result<String> updateStatus(@PathVariable("id") Long id, @RequestBody UserUpdateRequest request) {
         UserDTO userDTO = UserDTO.builder().id(id).status(request.getStatus()).build();
         Integer update = userService.update(userDTO);
@@ -120,7 +120,7 @@ public class UserController {
     }
 
     @ApiOperation("给用户分配角色")
-    @PostMapping(value = "/role/update")
+    @PostMapping("/role/update")
     public Result<String> updateRole(@RequestBody UserRoleRequest request) {
         Integer bindRole = userService.updateHasRole(request.getUserId(), request.getRoleIds());
         return bindRole > 0 ? Result.updateSuccess(bindRole) : Result.error();
