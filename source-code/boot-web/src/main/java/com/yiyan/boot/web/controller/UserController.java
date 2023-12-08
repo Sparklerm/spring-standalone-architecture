@@ -42,7 +42,7 @@ public class UserController {
     private IUserService userService;
 
     @ApiOperation(value = "用户注册")
-    @PostMapping("/common/register")
+    @PostMapping("/register")
     @ResponseBody
     public Result<UserVO> register(@Valid @RequestBody UserRegisterRequest request) {
         UserDTO userDTO = BeanCopierUtils.copyProperties(request, UserDTO.class);
@@ -50,7 +50,7 @@ public class UserController {
         return Result.success(register);
     }
 
-    @PostMapping("/common/login")
+    @PostMapping("/login")
     @ApiOperation(value = "密码登录")
     public Result<UserLoginResultDTO> login(@RequestBody LoginRequest request) {
         UserLoginResultDTO userLoginResultDTO = userService.loginByPassword(request.getUsername(), request.getPassword());
@@ -76,7 +76,22 @@ public class UserController {
     @ApiOperation("用户修改密码")
     @PostMapping("/common/updatePassword")
     public Result<String> updatePassword(@Valid @RequestBody UserUpdatePasswordRequest request) {
-        Integer update = userService.updatePassword(request.getId(), request.getOldPassword(), request.getNewPassword());
+        AuthUserDetails context = AuthContextHolder.getContext();
+        Integer update = userService.updatePassword(context.getUser().getId(), request.getOldPassword(), request.getNewPassword());
+        return update > 0 ? Result.updateSuccess(update) : Result.error();
+    }
+
+    @ApiOperation("修改当前登录用户信息")
+    @PostMapping("/common/updateCurrentUserInfo")
+    public Result<String> updateCurrentUserInfo(@RequestBody UserUpdateRequest request) {
+        // 获取当前登录用户信息
+        AuthUserDetails context = AuthContextHolder.getContext();
+        // 当前登录用户信息及更新信息填充到DTO
+        UserDTO userDTO = BeanCopierUtils.copyProperties(request, UserDTO.class);
+        userDTO.setId(context.getUser().getId());
+        // 不允许在此处修改密码
+        userDTO.setPassword(null);
+        Integer update = userService.update(userDTO);
         return update > 0 ? Result.updateSuccess(update) : Result.error();
     }
 

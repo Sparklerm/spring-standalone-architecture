@@ -45,6 +45,10 @@ public class RoleDTO implements Serializable {
      */
     private Integer status;
 
+    /**
+     * 是否为用户注册时绑定的默认角色：0->不是；1->是
+     */
+    private Integer isDefault;
 
     /**
      * 创建时间

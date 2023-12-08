@@ -46,6 +46,11 @@ public class RolePO extends BasePO implements Serializable {
      */
     private Integer status;
 
+    /**
+     * 是否为用户注册时绑定的默认角色：0->不是；1->是
+     */
+    private Integer isDefault;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 

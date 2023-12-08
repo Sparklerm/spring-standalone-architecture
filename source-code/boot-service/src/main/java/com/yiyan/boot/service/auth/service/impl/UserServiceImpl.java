@@ -38,6 +38,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -73,6 +74,9 @@ public class UserServiceImpl implements IUserService {
         String password = passwordEncoder.encode(userDTO.getPassword());
         user.setPassword(password);
         userDao.insert(user);
+        // 绑定默认角色
+        List<RolePO> defaultRoles = roleDao.selectDefaultRole();
+        updateHasRole(user.getId(), defaultRoles.stream().map(RolePO::getId).collect(Collectors.toList()));
         // 返回结果
         return BeanCopierUtils.copyProperties(user, UserDTO.class);
     }
@@ -146,6 +150,11 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public Integer update(UserDTO userDTO) {
+        // 查询是否存在相同用户名的用户,如果存在则不允许修改
+        if (StringUtils.isNotBlank(userDTO.getUsername())) {
+            UserPO userPO = userDao.selectByUsername(userDTO.getUsername());
+            BizAssert.fail(!Objects.equals(userDTO.getId(), userPO.getId()), BizCodeEnum.USERNAME_ALREADY_REGISTER);
+        }
         UserPO userPO = BeanCopierUtils.copyProperties(userDTO, UserPO.class);
         return userDao.updateById(userPO);
     }

@@ -16,7 +16,7 @@ public class UserUpdateRequest implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("用户ID")
+    @ApiModelProperty("用户标识")
     private String username;
 
     @ApiModelProperty("密码")

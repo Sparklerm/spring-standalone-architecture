@@ -60,6 +60,12 @@ public class BizAssert {
         }
     }
 
+    public static void fail(boolean flag, StatusCodeEnumFormat errorCode) {
+        if (flag) {
+            throw new BizException(errorCode);
+        }
+    }
+
     public static void isNull(@Nullable Object object, StatusCodeEnumFormat status) {
         if (null != object) {
             throw new BizException(status);

@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -17,10 +16,6 @@ import java.io.Serializable;
 public class UserUpdatePasswordRequest implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @ApiModelProperty(value = "用户ID")
-    @NotNull(message = "用户ID不能为空")
-    private Long id;
 
     @ApiModelProperty(value = "旧密码")
     @NotBlank(message = "旧密码不能为空")

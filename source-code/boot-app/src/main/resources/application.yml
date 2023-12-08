@@ -130,4 +130,5 @@ secure:
       - /**/*.js
       - /**/*.gif
       - /**/*.ico
-      - /**/user/common/**
+      - /**/login/**
+      - /**/register/**
