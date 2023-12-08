@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.yiyan</groupId>
-    <artifactId>spring-standalone-architecture</artifactId>
+    <artifactId>source-code</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>spring-standalone-architecture</name>
+    <name>source-code</name>
 
     <modules>
         <module>boot-common</module>
@@ -264,6 +264,4 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>

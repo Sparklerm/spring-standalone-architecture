@@ -5,30 +5,22 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.yiyan</groupId>
-        <artifactId>spring-standalone-architecture</artifactId>
+        <artifactId>source-code</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>boot-dao</artifactId>
+    <artifactId>boot-web</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-boot-starter</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -38,40 +30,23 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.auth0</groupId>
-            <artifactId>java-jwt</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-        </dependency>
         <!-- 系统模块 -->
         <dependency>
             <groupId>com.yiyan</groupId>
             <artifactId>boot-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.yiyan</groupId>
+            <artifactId>boot-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.yiyan</groupId>
+            <artifactId>boot-security</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
-        <finalName>boot-dao</finalName><resources>
-        <resource>
-            <directory>src/main/resources</directory>
-            <filtering>true</filtering>
-            <includes>
-                <include>**/**</include>
-            </includes>
-        </resource>
-    </resources>
-
+        <finalName>boot-web</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -87,4 +62,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
