@@ -8,7 +8,7 @@ spring:
   application:
     name: spring-boot-app
   profiles:
-    active: @env@
+    active: dev
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
