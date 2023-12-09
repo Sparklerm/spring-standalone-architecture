@@ -15,13 +15,13 @@ import javax.annotation.PostConstruct;
 @Component
 @Data
 public class JwtConfig {
-    @Value("${jwt.secret: 123456}")
+    @Value("${jwt.secret}")
     private String secretKey;
-    @Value("${jwt.issuer: boot_app}")
+    @Value("${jwt.issuer}")
     private String issuer;
-    @Value("${jwt.expirationTime: 3600}")
+    @Value("${jwt.expirationTime}")
     private long expirationTime;
-    @Value("${jwt.header: Authorization}")
+    @Value("${jwt.tokenHeader}")
     private String header;
 
     @PostConstruct
