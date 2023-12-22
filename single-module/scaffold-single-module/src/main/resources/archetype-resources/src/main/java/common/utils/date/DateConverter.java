@@ -30,22 +30,10 @@ public class DateConverter implements Converter<String, Date> {
      * @param date Date对象
      * @return LocalDate对象
      */
-    public static LocalDate toLocalDate(Date date) {
+    public static LocalDate dateToLocalDate(Date date) {
         Instant instant = date.toInstant();
         ZoneId zoneId = ZoneId.systemDefault();
         return instant.atZone(zoneId).toLocalDate();
-    }
-
-    /**
-     * 将LocalDate对象转换为Date对象
-     *
-     * @param localDate LocalDate对象
-     * @return Date对象
-     */
-    public static Date toDate(LocalDate localDate) {
-        ZoneId zoneId = ZoneId.systemDefault();
-        ZonedDateTime zdt = localDate.atStartOfDay(zoneId);
-        return Date.from(zdt.toInstant());
     }
 
     /**
@@ -54,10 +42,22 @@ public class DateConverter implements Converter<String, Date> {
      * @param date Date对象
      * @return LocalDateTime对象
      */
-    public static LocalDateTime toLocalDateTime(Date date) {
+    public static LocalDateTime dateToLocalDateTime(Date date) {
         Instant instant = date.toInstant();
         ZoneId zoneId = ZoneId.systemDefault();
         return LocalDateTime.ofInstant(instant, zoneId);
+    }
+
+    /**
+     * 将LocalDate对象转换为Date对象
+     *
+     * @param localDate LocalDate对象
+     * @return Date对象
+     */
+    public static Date localDateToDate(LocalDate localDate) {
+        ZoneId zoneId = ZoneId.systemDefault();
+        ZonedDateTime zdt = localDate.atStartOfDay(zoneId);
+        return Date.from(zdt.toInstant());
     }
 
     /**
@@ -66,7 +66,7 @@ public class DateConverter implements Converter<String, Date> {
      * @param localDateTime LocalDateTime对象
      * @return Date对象
      */
-    public static Date toDate(LocalDateTime localDateTime) {
+    public static Date localDateTimeToDate(LocalDateTime localDateTime) {
         ZoneId zoneId = ZoneId.systemDefault();
         Instant instant = localDateTime.atZone(zoneId).toInstant();
         return Date.from(instant);

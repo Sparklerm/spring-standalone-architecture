@@ -26,18 +26,6 @@ public class DateUtils {
     }
 
     /**
-     * 将指定格式的字符串解析为LocalDateTime对象
-     *
-     * @param dateTimeStr 待解析字符串
-     * @param pattern     格式化模式
-     * @return LocalDateTime对象
-     */
-    public static LocalDateTime parse(String dateTimeStr, String pattern) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-        return LocalDateTime.parse(dateTimeStr, formatter);
-    }
-
-    /**
      * 将LocalDateTime对象转换成默认的格式yyyy-MM-dd HH:mm:ss的字符串
      *
      * @param localDateTime LocalDateTime对象
@@ -48,13 +36,15 @@ public class DateUtils {
     }
 
     /**
-     * 将默认格式yyyy-MM-dd HH:mm:ss的字符串解析为LocalDateTime对象
+     * 将指定格式的字符串解析为LocalDateTime对象
      *
      * @param dateTimeStr 待解析字符串
+     * @param pattern     格式化模式
      * @return LocalDateTime对象
      */
-    public static LocalDateTime parse(String dateTimeStr) {
-        return parse(dateTimeStr, DEFAULT_DATE_TIME_FORMAT_PATTERN);
+    public static LocalDateTime parse(String dateTimeStr, String pattern) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        return LocalDateTime.parse(dateTimeStr, formatter);
     }
 
     /**
@@ -70,6 +60,26 @@ public class DateUtils {
     }
 
     /**
+     * 将LocalDate对象转换成默认的格式yyyy-MM-dd的字符串
+     *
+     * @param localDate LocalDate对象
+     * @return 格式化后的字符串
+     */
+    public static String formatDate(LocalDate localDate) {
+        return format(localDate, DEFAULT_DATE_FORMAT_PATTERN);
+    }
+
+    /**
+     * 将默认格式yyyy-MM-dd HH:mm:ss的字符串解析为LocalDateTime对象
+     *
+     * @param dateTimeStr 待解析字符串
+     * @return LocalDateTime对象
+     */
+    public static LocalDateTime parse(String dateTimeStr) {
+        return parse(dateTimeStr, DEFAULT_DATE_TIME_FORMAT_PATTERN);
+    }
+
+    /**
      * 将指定格式的字符串解析为LocalDate对象
      *
      * @param dateStr 待解析字符串
@@ -79,16 +89,6 @@ public class DateUtils {
     public static LocalDate parseDate(String dateStr, String pattern) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
         return LocalDate.parse(dateStr, formatter);
-    }
-
-    /**
-     * 将LocalDate对象转换成默认的格式yyyy-MM-dd的字符串
-     *
-     * @param localDate LocalDate对象
-     * @return 格式化后的字符串
-     */
-    public static String formatDate(LocalDate localDate) {
-        return format(localDate, DEFAULT_DATE_FORMAT_PATTERN);
     }
 
     /**

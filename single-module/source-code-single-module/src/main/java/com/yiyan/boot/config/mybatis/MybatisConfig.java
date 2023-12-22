@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  * MybatisPlus配置类
  */
 @Configuration
-@MapperScan("com.*.**.dao")
+@MapperScan("com.yiyan.boot.dao")
 public class MybatisConfig {
 
     /**
