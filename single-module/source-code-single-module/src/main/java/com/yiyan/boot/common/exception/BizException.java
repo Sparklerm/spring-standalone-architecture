@@ -12,6 +12,7 @@ import lombok.Getter;
  */
 @Getter
 public class BizException extends RuntimeException {
+
     private static final long serialVersionUID = 1L;
 
     /**

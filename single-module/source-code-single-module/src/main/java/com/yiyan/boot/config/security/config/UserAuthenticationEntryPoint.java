@@ -21,10 +21,11 @@ import java.io.IOException;
 public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
+            throws IOException, ServletException {
         response.setContentType("application/json;charset=UTF-8");
         response.setStatus(HttpStatus.OK.value());
-        response.getWriter().write(JSON.toJSONString(Result.error(BizCodeEnum.UNAUTHORIZED)));
-        response.getWriter().flush();
+        response.getOutputStream().print(JSON.toJSONString(Result.error(BizCodeEnum.UNAUTHORIZED)));
+        response.getOutputStream().flush();
     }
 }
